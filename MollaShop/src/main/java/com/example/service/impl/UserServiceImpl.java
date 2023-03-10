@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Optional<User> saveOrUpdate(User user) {
-		if(user.getId().equals(""))
+		if(user.getId() == null || user.getId().equals(""))
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User userOld = userRepository.save(user);
 		return Optional.of(userOld);

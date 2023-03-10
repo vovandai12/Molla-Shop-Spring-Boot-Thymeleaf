@@ -40,6 +40,7 @@
 
 <!-- Template Main CSS File -->
 <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -82,7 +83,38 @@
 
 	<!-- Template Main JS File -->
 	<script th:src="@{/admin/assets/js/main.js}"></script>
+	<script type="text/javascript">
 
+			var baseUrl = new URL(window.location.href).origin;
+	
+			function deleteUser(id,name) {
+				Swal.fire({
+					  title: 'Bạn có muốn xoá?',
+					  text: "Xoá người dùng " + name + " sẽ không khôi phục được!",
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: 'Xác nhận!'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+						  Swal.fire(
+							      'Đã xoá!',
+							      'Đã xoá người dùng thành công.',
+							      'success'
+							    )
+						  $.ajax({
+								type: "DELETE",
+								url: baseUrl + "/users/delete" + id,
+								cache: false,
+								success: function() {
+									
+								}
+								})
+					  }
+					})
+			}
+		</script>
 </body>
 
 </html>

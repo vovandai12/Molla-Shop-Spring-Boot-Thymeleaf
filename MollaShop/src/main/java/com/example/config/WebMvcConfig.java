@@ -52,7 +52,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers("/admin/**","/auth/**")
+				.antMatchers(
+						"/admin/**",
+						"/auth/**",
+						"/users/**")
 				.permitAll()
 				.antMatchers("/shop/**")
 				.access("hasRole('ROLE_USER')")

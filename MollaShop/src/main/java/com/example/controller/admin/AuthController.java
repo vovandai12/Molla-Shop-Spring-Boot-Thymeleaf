@@ -1,5 +1,7 @@
 package com.example.controller.admin;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,8 @@ public class AuthController {
 	@GetMapping(value = "/login")
 	public String login(Login login) {
 		if (securityService.isAuthenticated()) {
-            return "redirect:/home";
-        }
+			return "redirect:/home";
+		}
 		return "auth/admin/login";
 	}
 
@@ -49,8 +51,8 @@ public class AuthController {
 	@GetMapping(value = "/register")
 	public String register(Register register) {
 		if (securityService.isAuthenticated()) {
-            return "redirect:/home";
-        }
+			return "redirect:/home";
+		}
 		return "auth/admin/register";
 	}
 
@@ -76,6 +78,12 @@ public class AuthController {
 		user.setLogin(true);
 		user.setRole(Role.ROLE_ADMIN);
 		userService.saveOrUpdate(user);
+		return "redirect:/auth/login";
+	}
+
+	@GetMapping(value = "/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		securityService.logout(request, response);
 		return "redirect:/auth/login";
 	}
 }

@@ -28,8 +28,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Autowired
 	CustomUserDetailsServiceImpl customUserDetailsService;
 	
-	@Autowired
-	MyAccessDeniedHandler accessDeniedHandler;
+	@Bean
+	public MyAccessDeniedHandler accessDeniedHandler(){
+	    return new MyAccessDeniedHandler();
+	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -54,15 +56,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers(
 						"/admin/**",
-						"/auth/**",
-						"/users/**")
+						"/auth/**")
 				.permitAll()
 				.antMatchers("/shop/**")
 				.access("hasRole('ROLE_USER')")
-				.antMatchers("/home/**")
+				.antMatchers(
+						"/home/**",
+						"/users/**",
+						"/categories/**",
+						"/brands/**")
 				.access("hasRole('ROLE_ADMIN')")
 				.anyRequest().authenticated();
-		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 		http.authenticationProvider(authenticationProvider());
 		return http.build();
 	}

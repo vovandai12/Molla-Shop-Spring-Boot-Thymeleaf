@@ -39,7 +39,7 @@ public class Product extends Auditable implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "name", nullable = true, columnDefinition = "nvarchar(50)")
+	@Column(name = "name", nullable = true, columnDefinition = "nvarchar(max)")
 	private String name;
 
 	@Column(name = "quantity")

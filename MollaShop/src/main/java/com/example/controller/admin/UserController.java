@@ -123,7 +123,7 @@ public class UserController {
 
 	@PostMapping(value = "/saveOrUpdate/submit")
 	public String saveOrUpdate(Model model, @Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result,
-			@RequestParam(name = "file") MultipartFile file) {
+			@RequestParam(name = "file") MultipartFile file) throws IOException {
 		if (result.hasErrors()) {
 			model.addAttribute("error", "Lỗi định dạng");
 			return "admin/users/user-form";
@@ -131,23 +131,8 @@ public class UserController {
 		User user;
 		if (userDto.getId() != null || !userDto.getId().equals("")) {
 			user = userService.findById(userDto.getId()).get();
-			user.setUsername(userDto.getUsername());
-			user.setFirstName(userDto.getFirstName());
-			user.setLastName(userDto.getLastName());
-			user.setEmail(userDto.getEmail());
-			user.setAddress(userDto.getAddress());
-			user.setBirthDay(userDto.getBirthDay());
-			user.setGender(userDto.getGender());
-			user.setLogin(userDto.getLogin());
-			Role role = Role.ROLE_USER;
-			if (userDto.getRole())
-				role = Role.ROLE_ADMIN;
-			user.setRole(role);
 			if (!file.isEmpty()) {
-				UUID uuid = UUID.randomUUID();
-				String uuidString = uuid.toString();
-				user.setAvatar(storageService.getStorageFilename(file, uuidString));
-				storageService.store(file, user.getAvatar());
+				storageService.delete(user.getAvatar());
 			}
 		} else {
 			if (userService.existsByUsername(userDto.getUsername())) {
@@ -160,25 +145,25 @@ public class UserController {
 			}
 			user = new User();
 			user.setId(userDto.getId());
-			user.setUsername(userDto.getUsername());
-			user.setFirstName(userDto.getFirstName());
-			user.setLastName(userDto.getLastName());
-			user.setEmail(userDto.getEmail());
-			user.setAddress(userDto.getAddress());
-			user.setBirthDay(userDto.getBirthDay());
-			user.setGender(userDto.getGender());
-			user.setLogin(userDto.getLogin());
-			Role role = Role.ROLE_USER;
-			if (userDto.getRole())
-				role = Role.ROLE_ADMIN;
-			user.setRole(role);
 			user.setPassword(userDto.getUsername());
-			if (!file.isEmpty()) {
-				UUID uuid = UUID.randomUUID();
-				String uuidString = uuid.toString();
-				user.setAvatar(storageService.getStorageFilename(file, uuidString));
-				storageService.store(file, user.getAvatar());
-			}
+		}
+		user.setUsername(userDto.getUsername());
+		user.setFirstName(userDto.getFirstName());
+		user.setLastName(userDto.getLastName());
+		user.setEmail(userDto.getEmail());
+		user.setAddress(userDto.getAddress());
+		user.setBirthDay(userDto.getBirthDay());
+		user.setGender(userDto.getGender());
+		user.setLogin(userDto.getLogin());
+		Role role = Role.ROLE_USER;
+		if (userDto.getRole())
+			role = Role.ROLE_ADMIN;
+		user.setRole(role);
+		if (!file.isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+			String uuidString = uuid.toString();
+			user.setAvatar(storageService.getStorageFilename(file, uuidString));
+			storageService.store(file, user.getAvatar());
 		}
 		userService.saveOrUpdate(user);
 		return "redirect:/users";

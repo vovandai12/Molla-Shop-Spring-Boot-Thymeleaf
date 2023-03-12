@@ -64,7 +64,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						"/home/**",
 						"/users/**",
 						"/categories/**",
-						"/brands/**")
+						"/brands/**",
+						"/products/**")
 				.access("hasRole('ROLE_ADMIN')")
 				.anyRequest().authenticated();
 		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());

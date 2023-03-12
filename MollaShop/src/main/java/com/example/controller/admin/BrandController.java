@@ -106,11 +106,10 @@ public class BrandController {
 		Brand brand;
 		if (brandDto.getId() != null) {
 			brand = brandService.findById(brandDto.getId()).get();
-			brand.setName(brandDto.getName());
 		} else {
 			brand = new Brand();
-			brand.setName(brandDto.getName());
 		}
+		brand.setName(brandDto.getName());
 		brandService.saveOrUpdate(brand);
 		return "redirect:/brands";
 	}

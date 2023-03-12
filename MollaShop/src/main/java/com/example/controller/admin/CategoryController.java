@@ -106,11 +106,10 @@ public class CategoryController {
 		Category category;
 		if (categoryDto.getId() != null) {
 			category = categoryService.findById(categoryDto.getId()).get();
-			category.setName(categoryDto.getName());
 		} else {
 			category = new Category();
-			category.setName(categoryDto.getName());
 		}
+		category.setName(categoryDto.getName());
 		categoryService.saveOrUpdate(category);
 		return "redirect:/categories";
 	}

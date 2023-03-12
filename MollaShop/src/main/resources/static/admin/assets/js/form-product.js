@@ -1,71 +1,37 @@
-jQuery(document).ready(function () {
-    ImgUpload();
+const gallery = document.getElementById('gallery');
+const files = [];
+const input = document.getElementById('files');
+
+input.addEventListener('change', () => {
+	let file = input.files;
+	/* if (file.length == 0 || file.length > 4) return; */
+	for (let i = 0; i < file.length; i++) {
+		if (file[i].type.split("/")[0] != 'image') continue;
+		if (!files.some(e => e.name == file[i].name)) files.push(file[i])
+	}
+	showImages();
 });
 
-function ImgUpload() {
-    var imgWrap = "";
-    var imgArray = [];
+function showImages() {
+	gallery.innerHTML = '';
+	const card = document.createElement('div');
+	card.classList.add('row');
+	/* onclick="delImage(${index})" */
+	card.innerHTML = files.reduce((prev, curr, index) => {
+		return `${prev}
+       			 <div class="col-sm-2">
+                     <div class="card">
+       			 		<button type="button" onclick="delImage(${index})" class="btn btn-danger" style="display: inline-block;position: absolute;">
+       			 			<i class="bi bi-x-circle"></i>
+       			 		</button>
+                         <img src="${URL.createObjectURL(curr)}" class="card-img-top" alt="...">
+                     </div>
+                </div>`
+	}, '');
+	gallery.appendChild(card);
+}
 
-    $('.upload__inputfile').each(function () {
-        $(this).on('change', function (e) {
-            // imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-            imgWrap = $('.upload__img-wrap');
-            var maxLength = 20;
-
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
-            var iterator = 0;
-            filesArr.forEach(function (f, index) {
-
-                if (!f.type.match('image.*')) {
-                    return;
-                }
-
-                if (imgArray.length > maxLength) {
-                    return false
-                } else {
-                    var len = 0;
-                    for (var i = 0; i < imgArray.length; i++) {
-                        if (imgArray[i] !== undefined) {
-                            len++;
-                        }
-                    }
-                    if (len > maxLength) {
-                        return false;
-                    } else {
-                        imgArray.push(f);
-
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            //var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
-                            var html = `
-                                        <div class="col-sm-3 upload__img-box">
-                                            <div class="card">
-                                                <img src="`+ e.target.result + `"
-                                                data-number="` + $(".upload__img-close").length + `" 
-                                                data-file="` + f.name + `"
-                                                class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-                                        `;
-                            imgWrap.append(html);
-                            iterator++;
-                        }
-                        reader.readAsDataURL(f);
-                    }
-                }
-            });
-        });
-    });
-
-    $('body').on('click', ".upload__img-close", function (e) {
-        var file = $(this).parent().data("file");
-        for (var i = 0; i < imgArray.length; i++) {
-            if (imgArray[i].name === file) {
-                imgArray.splice(i, 1);
-                break;
-            }
-        }
-        $(this).parent().parent().remove();
-    });
+function delImage(index) {
+	files.splice(index, 1);
+	showImages();
 }

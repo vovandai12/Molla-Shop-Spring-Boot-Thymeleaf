@@ -56,9 +56,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers(
 						"/admin/**",
-						"/auth/**")
+						"/shop/**",
+						"/auth/**",
+						"/molla/layout/**",
+						"/molla/home/**")
 				.permitAll()
-				.antMatchers("/shop/**")
+				.antMatchers()
 				.access("hasRole('ROLE_USER')")
 				.antMatchers(
 						"/home/**",

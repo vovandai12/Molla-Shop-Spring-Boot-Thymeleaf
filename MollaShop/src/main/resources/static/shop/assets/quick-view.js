@@ -1,6 +1,5 @@
 var baseUrl = new URL(window.location.href).origin;
 var bodyQuickView = document.getElementById('bodyQuickView');
-const bodyQuickImage = document.getElementById('bodyQuickImage');
 
 function formatVND(n, currency) {
 	return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + currency;
@@ -26,45 +25,93 @@ function quickView(id) {
 			}
 			wrapper.innerHTML = `
 				<h2 class="product-title">`+ response.data.name + `</h2>` + price;
-
 			bodyQuickView.append(wrapper);
-
-
-			bodyQuickImage.innerHTML = ``;
-			var wrapperImage = document.createElement('a');
-			wrapperImage.href = '#image0';
-			wrapperImage.classList.add("carousel-dot", "active");
-			wrapperImage.innerHTML = `<img src="/uploads/` + response.data.banner + `" alt="...">`;
-			bodyQuickImage.appendChild(wrapperImage);
 		});
 	viewImages(id);
 }
 
-const bodyQuickImageDetail = document.getElementById('bodyQuickImageDetail');
-function viewImages(id) {
-	bodyQuickImageDetail.innerHTML = ``;
-	axios({
-		method: 'GET',
-		contentType: "application/json",
-		url: baseUrl + "/molla/product-detail/quick-view/view-image/" + id
-	})
-		.then(response => {
-			response.data.forEach(image => {
-				var wrapperImage = document.createElement('a');
-				wrapperImage.href = '#image' + image.id;
-				wrapperImage.classList.add("carousel-dot");
-				wrapperImage.innerHTML = `<img src="/uploads/` + image.name + `" alt="...">`;
-				bodyQuickImage.appendChild(wrapperImage);
+let images;
+const mainView = document.getElementById('main-view');
+const thumbnails = document.getElementById('thumbnails');
 
-				var wrapperImageDetail = document.createElement('div');
-				wrapperImageDetail.setAttribute('data-hash', 'image' + image.id);
-				wrapperImageDetail.classList.add("intro-slide");
-				wrapperImageDetail.innerHTML = `<img src="/uploads/` + image.name + `" alt="...">
-											<a class="btn-fullscreen"> 
-												<i class="icon-arrows"></i>
-											</a>
-											`;
-				bodyQuickImageDetail.appendChild(wrapperImageDetail);
-			});
-		});
+async function viewImages(id) {
+	images = [];
+	const response = await axios.get(baseUrl + "/molla/product-detail/quick-view/view-image/" + id);
+	images = response.data;
+
+	for (let i = 0; i < images.length; i++) {
+		let image = images[i];
+		let img = document.createElement('img');
+		img.src = '/uploads/' + images[i].name;
+		img.setAttribute('width', 170);
+		img.setAttribute('data-index', i);
+		img.addEventListener('click', changeImage);
+		thumbnails.appendChild(img);
+	}
+
+	initGallery();
+	setTimeout(slideImage, 3000);
+console.log(images);
+}
+
+function initGallery() {
+	loadImage(0);
+};
+
+function slideImage() {
+	let currentIndex = parseInt(mainView.getAttribute('data-index'));
+	currentIndex = currentIndex + 1 == images.length ? 1 : currentIndex + 1;
+	loadImage(currentIndex);
+	setTimeout(slideImage, 3000);
+
+}
+
+function changeImage(event) {
+	let target = event.currentTarget;
+	let index = target.getAttribute('data-index');
+	loadImage(index);
+}
+
+function loadImage(index) {
+	let image = images[index];
+	mainView.src = '/uploads/' + image.name;
+	mainView.setAttribute('data-index', index);
+	mainView.setAttribute('id', 'image-' + index);
+	mainView.style.opacity = 1;
+}
+
+function fullScreenImage() {
+	toggleFullscreen(mainView);
+}
+
+function toggleFullscreen(el) {
+	if (document.fullscreenElement || document.mozFullScreenElement
+		|| document.webkitFullscreenElement || document.msFullscreenElement) {
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		}
+		else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		}
+		else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		}
+		else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	}
+	else {
+		if (document.documentElement.requestFullscreen) {
+			el.requestFullscreen();
+		}
+		else if (document.documentElement.mozRequestFullScreen) {
+			el.mozRequestFullScreen();
+		}
+		else if (document.documentElement.webkitRequestFullscreen) {
+			el.webkitRequestFullscreen();
+		}
+		else if (document.documentElement.msRequestFullscreen) {
+			el.msRequestFullscreen();
+		}
+	}
 }

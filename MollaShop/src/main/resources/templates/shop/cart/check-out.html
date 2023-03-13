@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/layout.html}">
+
+<head>
+<title>Thanh toán</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="page-header text-center"
+			style="background-image: url('../shop/assets/images/page-header-bg.jpg')">
+			<div class="container">
+				<h1 class="page-title">
+					Thanh toán<span>Cửa hàng</span>
+				</h1>
+			</div>
+			<!-- End .container -->
+		</div>
+		<!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/molla/home}">Trang
+							chủ</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/molla/view-cart}">Giỏ hàng</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Thanh
+						toán</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="checkout">
+				<div class="container">
+					<form action="#">
+						<div class="row">
+							<div class="col-lg-9">
+								<h2 class="checkout-title">Chi tiết thanh toán</h2>
+								<!-- End .checkout-title -->
+								<div class="row">
+									<div class="col-sm-6">
+										<label>Họ *</label> <input type="text" class="form-control"
+											required>
+									</div>
+									<!-- End .col-sm-6 -->
+
+									<div class="col-sm-6">
+										<label>Tên *</label> <input type="text" class="form-control"
+											required>
+									</div>
+									<!-- End .col-sm-6 -->
+								</div>
+								<!-- End .row -->
+
+								<label>Địa chỉ *</label> <input type="text" class="form-control"
+									required> <label>Số điện thoại *</label> <input
+									type="text" class="form-control" required> <label>Email
+									*</label> <input type="email" class="form-control" required> <label>Ghi
+									chú</label>
+								<textarea class="form-control" cols="30" rows="4"
+									placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+							</div>
+							<!-- End .col-lg-9 -->
+							<aside class="col-lg-3">
+								<div class="summary">
+									<h3 class="summary-title">Đơn hàng của bạn</h3>
+									<!-- End .summary-title -->
+
+									<table class="table table-summary">
+										<thead>
+											<tr>
+												<th>Sản phẩm</th>
+												<th>Tổng</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+												<td><a href="#">Beige knitted elastic runner shoes</a></td>
+												<td>$84.00</td>
+											</tr>
+
+											<tr>
+												<td><a href="#">Blue utility pinafore denimdress</a></td>
+												<td>$76,00</td>
+											</tr>
+											<tr class="summary-subtotal">
+												<td>Tổng tiền:</td>
+												<td>$160.00</td>
+											</tr>
+											<!-- End .summary-subtotal -->
+											<tr>
+												<td>Giao hàng:</td>
+												<td>Free shipping</td>
+											</tr>
+											<tr class="summary-total">
+												<td>Tổng hoá đơn:</td>
+												<td>$160.00</td>
+											</tr>
+											<!-- End .summary-total -->
+										</tbody>
+									</table>
+									<!-- End .table table-summary -->
+
+									<div class="accordion-summary" id="accordion-payment">
+										<div class="card">
+											<div class="card-header" id="heading-1">
+												<h2 class="card-title">
+													<a role="button" data-toggle="collapse" href="#collapse-1"
+														aria-expanded="true" aria-controls="collapse-1">
+														Chuyển khoản trực tiếp </a>
+												</h2>
+											</div>
+											<!-- End .card-header -->
+											<div id="collapse-1" class="collapse show"
+												aria-labelledby="heading-1" data-parent="#accordion-payment">
+												<div class="card-body">Thực hiện thanh toán của bạn
+													trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng
+													sử dụng ID đơn đặt hàng của bạn làm tài liệu tham khảo
+													thanh toán. đơn đặt hàng của bạn sẽ không được vận chuyển
+													cho đến khi tiền đã xóa trong tài khoản của chúng tôi.</div>
+												<!-- End .card-body -->
+											</div>
+											<!-- End .collapse -->
+										</div>
+										<!-- End .card -->
+
+										<div class="card">
+											<div class="card-header" id="heading-2">
+												<h2 class="card-title">
+													<a class="collapsed" role="button" data-toggle="collapse"
+														href="#collapse-2" aria-expanded="false"
+														aria-controls="collapse-2"> Kiểm tra thanh toán </a>
+												</h2>
+											</div>
+											<!-- End .card-header -->
+											<div id="collapse-2" class="collapse"
+												aria-labelledby="heading-2" data-parent="#accordion-payment">
+												<div class="card-body">Thực hiện thanh toán khi bạn
+													đơn hàng vào trạng thái đã vẫn chuyển.</div>
+												<!-- End .card-body -->
+											</div>
+											<!-- End .collapse -->
+										</div>
+										<!-- End .card -->
+
+										<div class="card">
+											<div class="card-header" id="heading-3">
+												<h2 class="card-title">
+													<a class="collapsed" role="button" data-toggle="collapse"
+														href="#collapse-3" aria-expanded="false"
+														aria-controls="collapse-3"> Thanh toán khi giao hàng </a>
+												</h2>
+											</div>
+											<!-- End .card-header -->
+											<div id="collapse-3" class="collapse"
+												aria-labelledby="heading-3" data-parent="#accordion-payment">
+												<div class="card-body">Thực hiện thanh toán khi khách
+													hàng đã nhận và kiểm tra hàng, số tiền thanh toán giao cho
+													người vận chuyển.</div>
+												<!-- End .card-body -->
+											</div>
+											<!-- End .collapse -->
+										</div>
+										<!-- End .card -->
+
+										<div class="card">
+											<div class="card-header" id="heading-4">
+												<h2 class="card-title">
+													<a class="collapsed" role="button" data-toggle="collapse"
+														href="#collapse-4" aria-expanded="false"
+														aria-controls="collapse-4"> PayPal <small
+														class="float-right paypal-link">Tài khoản PayPal
+															là gì?</small>
+													</a>
+												</h2>
+											</div>
+											<!-- End .card-header -->
+											<div id="collapse-4" class="collapse"
+												aria-labelledby="heading-4" data-parent="#accordion-payment">
+												<div class="card-body">PayPal là dịch vụ thanh toán
+													trực tuyến cho phép cá nhân và doanh nghiệp chuyển tiền
+													theo phương thức điện tử. Bạn có thể gửi, nhận và giữ tiền
+													bằng nhiều loại tiền tệ trên thế giới.</div>
+												<!-- End .card-body -->
+											</div>
+											<!-- End .collapse -->
+										</div>
+										<!-- End .card -->
+
+										<div class="card">
+											<div class="card-header" id="heading-5">
+												<h2 class="card-title">
+													<a class="collapsed" role="button" data-toggle="collapse"
+														href="#collapse-5" aria-expanded="false"
+														aria-controls="collapse-5"> Thẻ tín dụng <img
+														src="assets/images/payments-summary.png"
+														alt="payments cards">
+													</a>
+												</h2>
+											</div>
+											<!-- End .card-header -->
+											<div id="collapse-5" class="collapse"
+												aria-labelledby="heading-5" data-parent="#accordion-payment">
+												<div class="card-body">Thẻ tín dụng (credit card) là
+													thẻ cho phép chủ thẻ thực hiện giao dịch thẻ trong phạm vi
+													hạn mức tín dụng đã được cấp theo thỏa thuận với tổ chức
+													phát hành thẻ. Nói một cách đơn giản, thẻ tín dụng là loại
+													thẻ giúp bạn mua hàng trước và thanh toán lại cho ngân hàng
+													sau.</div>
+												<!-- End .card-body -->
+											</div>
+											<!-- End .collapse -->
+										</div>
+										<!-- End .card -->
+									</div>
+									<!-- End .accordion -->
+
+									<button type="submit"
+										class="btn btn-outline-primary-2 btn-order btn-block">
+										<span class="btn-text">Đặt hàng</span> <span
+											class="btn-hover-text">Tiến hành kiểm tra</span>
+									</button>
+								</div>
+								<!-- End .summary -->
+							</aside>
+							<!-- End .col-lg-3 -->
+						</div>
+						<!-- End .row -->
+					</form>
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .checkout -->
+		</div>
+		<!-- End .page-content -->
+	</div>
+</body>
+
+</html>

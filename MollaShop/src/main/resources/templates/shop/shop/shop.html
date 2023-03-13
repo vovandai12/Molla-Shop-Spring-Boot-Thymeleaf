@@ -98,7 +98,7 @@
 													giảm giá</span>
 											</span>
 
-											<a th:href="@{/molla/shop/product-detail}"> <img
+											<a th:href="@{/molla/product-detail}"> <img
 												th:src="${item.banner} == null ? '/shop/assets/images/no-image.jpg' : '/uploads/' + ${item.banner}"
 												alt="Product image" class="product-image">
 											</a>
@@ -114,8 +114,10 @@
 											<!-- End .product-action-vertical -->
 
 											<div class="product-action">
-												<a href="#" class="btn-product btn-cart"><span>Thêm
-														giỏ hàng</span></a>
+												<a href="#quickView-modal" data-toggle="modal"
+													th:data-id="${item.id}"
+													th:onclick="quickView(this.getAttribute('data-id'))"
+													class="btn-product btn-cart"><span>Thêm giỏ hàng</span></a>
 											</div>
 											<!-- End .product-action -->
 										</figure>
@@ -127,7 +129,7 @@
 											</div>
 											<!-- End .product-cat -->
 											<h3 class="product-title">
-												<a th:href="@{/molla/shop/product-detail}"
+												<a th:href="@{/molla/product-detail}"
 													th:text="${item.name}">Tên sản phẩm</a>
 											</h3>
 											<!-- End .product-title -->

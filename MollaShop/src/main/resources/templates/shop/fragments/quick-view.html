@@ -18,38 +18,28 @@
 								<div class="row">
 									<div class="col-lg-7 col-md-6">
 										<div class="row">
-											<div class="product-left" id="bodyQuickImage"></div>
 											<div class="product-right">
-												<div
-													class="owl-carousel owl-theme owl-nav-inside owl-light mb-0"
-													data-toggle="owl"
-													data-owl-options='{"dots": false,"nav": false,"URLhashListener": true,"responsive": 
-													{"900": {"nav": true,"dots": true}}}'
-													id="bodyQuickImageDetail"></div>
+
+												<!--  -->
+												<div class="gallery">
+													<div class="main-image-section">
+														<img id="main-view" class="main-view" src=""
+															onclick="fullScreenImage();" alt="..." />
+													</div>
+													<div id="thumbnails" class="thumbnails"></div>
+												</div>
+
 											</div>
 										</div>
 									</div>
 									<div class="col-lg-5 col-md-6">
 										<div id="bodyQuickView"></div>
 
-										<div class="details-filter-row product-nav product-nav-thumbs">
-											<label for="size">color:</label> <a href="#" class="active">
-												<img
-												src="../../../../www.portotheme.com/html/molla/popup/assets/images/demos/demo-6/products/product-1-thumb.html"
-												alt="product desc">
-											</a> <a href="#"> <img
-												src="../../../../www.portotheme.com/html/molla/popup/assets/images/demos/demo-6/products/product-1-2-thumb.html"
-												alt="product desc">
-											</a>
-										</div>
-										<!-- End .product-nav -->
-
 										<div class="details-filter-row details-row-size">
-											<label for="size">Size:</label>
+											<label for="size_product">Kích thước:</label>
 											<div class="select-custom">
-												<select name="size" id="size" class="form-control">
-													<option value="#" selected="selected">Select a
-														size</option>
+												<select name="size_product" id="size_product"
+													class="form-control">
 													<option value="s">Small</option>
 													<option value="m">Medium</option>
 													<option value="l">Large</option>
@@ -58,7 +48,6 @@
 											</div>
 											<!-- End .select-custom -->
 										</div>
-
 
 										<div class="details-filter-row details-row-size">
 											<label for="qty">Qty:</label>
@@ -73,24 +62,17 @@
 										<div class="product-details-action">
 											<div class="details-action-wrapper">
 												<a href="#" class="btn-product btn-wishlist"
-													title="Wishlist"><span>Add to Wishlist</span></a> <a
-													href="#" class="btn-product btn-compare" title="Compare"><span>Add
-														to Compare</span></a>
+													title="Yêu thích"><span>Yêu thích</span></a>
 											</div>
 											<!-- End .details-action-wrapper -->
-											<a href="#" class="btn-product btn-cart"><span>add
-													to cart</span></a>
+											<a href="#" class="btn-product btn-cart"><span>Thêm
+													vào giỏ hàng</span></a>
 										</div>
 
 										<div class="product-details-footer">
-											<div class="product-cat">
-												<span>Category:</span> <a href="#">Women</a>, <a href="#">Dresses</a>,
-												<a href="#">Yellow</a>
-											</div>
-											<!-- End .product-cat -->
 
 											<div class="social-icons social-icons-sm">
-												<span class="social-label">Share:</span> <a href="#"
+												<span class="social-label">Chia sẻ:</span> <a href="#"
 													class="social-icon" title="Facebook" target="_blank"><i
 													class="icon-facebook-f"></i></a> <a href="#"
 													class="social-icon" title="Twitter" target="_blank"><i

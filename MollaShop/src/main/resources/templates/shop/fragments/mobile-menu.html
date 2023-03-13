@@ -52,7 +52,7 @@
 									</ul></li>
 								<li><a th:href="@{/molla/about}">Thông tin</a></li>
 								<li><a href="#">Liên hệ</a></li>
-								<li><a href="#">Tài khoản</a>
+								<li sec:authorize="isAuthenticated()"><a href="#">Tài khoản</a>
 									<ul>
 										<li><a href="#">Thông tin tài khoản</a></li>
 										<li><a href="#">Danh sách yêu thích</a></li>

@@ -18,8 +18,17 @@
 					<div class="header-right">
 
 						<ul class="top-menu">
-							<li><a href="#">Liên kết</a>
-								<ul class="menus">
+							<li><a style="cursor: pointer;" th:onclick="logout()"
+								sec:authorize="isAuthenticated()" sec:authentication="name">Tên
+									người dùng</a>
+								<ul class="menus" sec:authorize="isAuthenticated()">
+									<li class="login"><a style="cursor: pointer;"
+										th:onclick="logout()" sec:authentication="name">Tên người
+											dùng</a></li>
+								</ul></li>
+
+							<li><a sec:authorize="!isAuthenticated()">Liên kết</a>
+								<ul class="menus" sec:authorize="!isAuthenticated()">
 									<li class="login"><a href="#signin-modal"
 										data-toggle="modal">Đăng nhập / Đăng ký</a></li>
 								</ul></li>
@@ -77,9 +86,10 @@
 									class="col-lg-4 col-xxl-5col d-flex justify-content-end align-items-center">
 									<div class="header-dropdown-link">
 
-										<a href="#" class="wishlist-link"> <i class="icon-heart-o"></i>
-											<span class="wishlist-count">3</span> <span
-											class="wishlist-txt">Yêu thích</span>
+										<a sec:authorize="isAuthenticated()" href="#"
+											class="wishlist-link"> <i class="icon-heart-o"></i> <span
+											class="wishlist-count">3</span> <span class="wishlist-txt">Yêu
+												thích</span>
 										</a>
 
 										<div class="dropdown cart-dropdown">
@@ -259,8 +269,8 @@
 										</div> <!-- End .megamenu megamenu-md --></li>
 									<li><a th:href="@{/molla/about}">Thông tin</a></li>
 									<li><a href="#">Liên hệ</a></li>
-									<li><a href="#" class="sf-with-ul">Người dùng</a>
-
+									<li sec:authorize="isAuthenticated()"><a href="#"
+										class="sf-with-ul">Người dùng</a>
 										<ul>
 											<li><a href="#">Thông tin tài khoản</a></li>
 											<li><a href="#">Danh sách yêu thích</a></li>

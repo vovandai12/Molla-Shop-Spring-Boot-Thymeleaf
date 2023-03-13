@@ -99,7 +99,10 @@
 									<li><a href="#">Cách mua sắm trên MollaShop</a></li>
 									<li><a href="#">FAQ</a></li>
 									<li><a href="#">Liên hệ</a></li>
-									<li><a href="#">Đăng nhập</a></li>
+									<li sec:authorize="!isAuthenticated()"><a
+										href="#signin-modal" data-toggle="modal">Đăng nhập</a></li>
+									<li sec:authorize="isAuthenticated()"><a
+										style="cursor: pointer;" th:onclick="logout()">Đăng xuất</a></li>
 								</ul>
 								<!-- End .widget-list -->
 							</div>
@@ -127,7 +130,7 @@
 						<!-- End .col-sm-4 col-lg-2 -->
 
 						<div class="col-sm-4 col-lg-2">
-							<div class="widget">
+							<div class="widget" sec:authorize="isAuthenticated()">
 								<h4 class="widget-title">Tải khoản</h4>
 								<!-- End .widget-title -->
 

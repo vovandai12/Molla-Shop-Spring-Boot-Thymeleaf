@@ -55,11 +55,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers(
+						"/uploads/**",
 						"/admin/**",
 						"/shop/**",
 						"/auth/**",
 						"/molla/layout/**",
-						"/molla/home/**")
+						"/molla/home/**",
+						"/molla/about/**",
+						"/molla/shop/**",
+						"/molla/product-detail/**")
 				.permitAll()
 				.antMatchers()
 				.access("hasRole('ROLE_USER')")

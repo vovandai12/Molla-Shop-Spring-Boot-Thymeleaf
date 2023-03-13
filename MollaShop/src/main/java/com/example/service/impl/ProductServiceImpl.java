@@ -37,4 +37,22 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> findAllByNameLike(String keyword, Pageable pageable) {
 		return productRepository.findAllByNameLike(keyword, pageable);
 	}
+
+	@Override
+	public Page<Product> findAllByNameLikeAndColorLike(String keyword, String color, Pageable pageable) {
+		System.out.println(1);
+		return productRepository.findAllByNameLikeAndColorLike(keyword, color, pageable);
+	}
+
+	@Override
+	public Page<Product> findAllByNameLikeAndCategoryId(String keyword, Long id, Pageable pageable) {
+		System.out.println(2);
+		return productRepository.findAllByNameLikeAndCategoryId(keyword, id, pageable);
+	}
+
+	@Override
+	public Page<Product> findAllByNameLikeAndBrandId(String keyword, Long id, Pageable pageable) {
+		System.out.println(3);
+		return productRepository.findAllByNameLikeAndBrandId(keyword, id, pageable);
+	}
 }

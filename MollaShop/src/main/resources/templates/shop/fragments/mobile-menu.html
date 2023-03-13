@@ -11,10 +11,11 @@
 			<div class="mobile-menu-wrapper">
 				<span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-				<form action="#" method="get" class="mobile-search">
+				<form th:action="@{/molla/shop(field=${field})}"
+					class="mobile-search">
 					<label for="mobile-search" class="sr-only">Tìm kiếm</label> <input
-						type="search" class="form-control" name="mobile-search"
-						id="mobile-search" placeholder="Theo tên sản phẩm..." required>
+						type="search" class="form-control" name="keywords" id="keywords"
+						th:value="${keywords}" placeholder="Theo tên sản phẩm...">
 					<button class="btn btn-primary" type="submit">
 						<i class="icon-search"></i>
 					</button>
@@ -38,16 +39,18 @@
 							<ul class="mobile-menu">
 								<li class="active"><a th:href="@{/molla/home}">Trang
 										chủ</a></li>
-								<li><a href="#">Cửa hàng</a></li>
+								<li><a th:href="@{/molla/shop}">Cửa hàng</a></li>
 								<li><a href="#" class="sf-with-ul">Danh mục</a>
-									<ul>
+									<ul id="menu__mobile__item__data">
+										<!-- Danh mục sản phẩm -->
 										<li><a href="#">Danh mục 1</a></li>
+
 									</ul></li>
 								<li><a href="#">Thương hiệu</a>
-									<ul>
+									<ul id="menu__mobile__item__data__brand">
 										<li><a href="#">Thương hiệu 1</a></li>
 									</ul></li>
-								<li><a href="#">Thông tin</a></li>
+								<li><a th:href="@{/molla/about}">Thông tin</a></li>
 								<li><a href="#">Liên hệ</a></li>
 								<li><a href="#">Tài khoản</a>
 									<ul>
@@ -65,8 +68,10 @@
 					<div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel"
 						aria-labelledby="mobile-cats-link">
 						<nav class="mobile-cats-nav">
-							<ul class="mobile-cats-menu">
+							<ul class="mobile-cats-menu" id="menu__mobile__tab__item__data">
+								<!-- Danh mục sản phẩm -->
 								<li><a href="#">Danh mục 1 </a></li>
+
 							</ul>
 							<!-- End .mobile-cats-menu -->
 						</nav>

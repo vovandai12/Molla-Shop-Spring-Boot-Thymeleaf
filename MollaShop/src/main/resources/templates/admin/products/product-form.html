@@ -93,8 +93,16 @@
 											<label for="color" class="col-sm-4 col-form-label">Màu
 												sắc</label>
 											<div class="col-sm-8">
-												<input type="color" class="form-control form-control-color"
-													id="color" value="#4154f1" th:field="*{color}">
+												<select class="form-select" th:field="*{color}">
+													<option value="#000000">Đen</option>
+													<option value="#ffffff">Trắng</option>
+													<option value="#0419f7">Xanh dương</option>
+													<option value="#ff0000">Đỏ</option>
+													<option value="#fff200">Vàng</option>
+													<option value="#00ff11">Xanh lá</option>
+													<option value="#f200ff">Tím</option>
+													<option value="#fc05b2">Hồng</option>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -118,8 +126,8 @@
 											<div class="col-sm-8">
 												<div class="input-group">
 													<span class="input-group-text" id="basic-addon1">%</span> <input
-														type="number" class="form-control" min="0" step="0.1" max="100"
-														th:field="*{discount}">
+														type="number" class="form-control" min="0" step="0.1"
+														max="100" th:field="*{discount}">
 												</div>
 											</div>
 										</div>

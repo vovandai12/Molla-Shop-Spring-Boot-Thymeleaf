@@ -16,4 +16,10 @@ public interface ProductService {
 	void deleteById(Long id);
 
 	Page<Product> findAllByNameLike(String keyword, Pageable pageable);
+	
+	Page<Product> findAllByNameLikeAndColorLike(String keyword, String color, Pageable pageable);
+
+	Page<Product> findAllByNameLikeAndCategoryId(String keyword, Long id, Pageable pageable);
+
+	Page<Product> findAllByNameLikeAndBrandId(String keyword, Long id, Pageable pageable);
 }

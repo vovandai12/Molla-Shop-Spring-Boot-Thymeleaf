@@ -36,9 +36,9 @@
 										<div id="bodyQuickView"></div>
 
 										<div class="details-filter-row details-row-size">
-											<label for="size_product">Kích thước:</label>
+											<label for="cart_size">Kích thước:</label>
 											<div class="select-custom">
-												<select name="size_product" id="size_product"
+												<select name="cart_size" id="cart_size"
 													class="form-control">
 													<option value="s">Small</option>
 													<option value="m">Medium</option>
@@ -50,9 +50,9 @@
 										</div>
 
 										<div class="details-filter-row details-row-size">
-											<label for="qty">Qty:</label>
+											<label for="cart_qty">Qty:</label>
 											<div class="product-details-quantity">
-												<input type="number" id="qty" class="form-control" value="1"
+												<input type="number" id="cart_qty" name="cart_qty" class="form-control" value="1"
 													min="1" max="10" step="1" data-decimals="0" required>
 											</div>
 											<!-- End .product-details-quantity -->
@@ -65,8 +65,9 @@
 													title="Yêu thích"><span>Yêu thích</span></a>
 											</div>
 											<!-- End .details-action-wrapper -->
-											<a href="#" class="btn-product btn-cart"><span>Thêm
-													vào giỏ hàng</span></a>
+											<a th:onclick="addCart()"
+												class="btn-product btn-cart"><span>Thêm vào giỏ
+													hàng</span></a>
 										</div>
 
 										<div class="product-details-footer">

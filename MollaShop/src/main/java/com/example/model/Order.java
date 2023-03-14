@@ -7,16 +7,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
+import com.example.common.Pay;
+import com.example.common.Ship;
+import com.example.common.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -28,36 +26,43 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
-//@Table(name = "orders")
+@Entity
+@Table(name = "orders")
 public class Order extends Auditable implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
-			@Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy") })
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private String id;
+	private Long id;
 
-	@Size(min = 5, message = "{size.fullName}")
-	@Column(name = "full_name")
-	private String fullName;
+	@Column(name = "first_name", nullable = false, columnDefinition = "nvarchar(50)")
+	private String firstName;
+
+	@Column(name = "last_name", nullable = false, columnDefinition = "nvarchar(50)")
+	private String lastName;
+
+	@Column(name = "address", nullable = false, columnDefinition = "nvarchar(255)")
+	private String address;
 	
-	@Email(message = "{email.email}")
-	@NotBlank(message = "{notblank.email}")
-	@Column(name = "email")
+	@Column(name = "phone", nullable = false, columnDefinition = "varchar(11)")
+	private String phone;
+	
+	@Column(name = "email", nullable = false, columnDefinition = "varchar(50)")
 	private String email;
 	
-	@Column(name = "note")
+	@Column(name = "note", nullable = true, columnDefinition = "nvarchar(max)")
 	private String note;
 	
 	@Column(name = "status")
-	private String status;
+	private Status status;
+	
+	@Column(name = "ship")
+	private Ship ship;
 	
 	@Column(name = "pay")
-	private String pay;
+	private Pay pay;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

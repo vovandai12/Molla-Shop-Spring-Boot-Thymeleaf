@@ -88,17 +88,13 @@
 												th:if="${item.startDayDiscount != null and item.endDayDiscount != null and item.discount > 0}">
 												<span class="product-label label-sale"
 												th:if="${item.startDayDiscount.before(#dates.createNow()) and item.endDayDiscount.after(#dates.createNow())}"
-												th:text="${item.discount + ' % giảm'}"></span>
-											</span>
-
-											<span
-												th:if="${item.startDayDiscount != null and item.endDayDiscount != null and item.discount > 0}">
-												<span class="product-label"
+												th:text="${item.discount + ' % giảm'}"></span> <span
+												class="product-label"
 												th:if="${item.startDayDiscount.after(#dates.createNow())}">Sắp
 													giảm giá</span>
 											</span>
 
-											<a th:href="@{/molla/product-detail}"> <img
+											<a th:href="@{/molla/product-detail(id=${item.id})}"> <img
 												th:src="${item.banner} == null ? '/shop/assets/images/no-image.jpg' : '/uploads/' + ${item.banner}"
 												alt="Product image" class="product-image">
 											</a>
@@ -129,7 +125,7 @@
 											</div>
 											<!-- End .product-cat -->
 											<h3 class="product-title">
-												<a th:href="@{/molla/product-detail}"
+												<a th:href="@{/molla/product-detail(id=${item.id})}"
 													th:text="${item.name}">Tên sản phẩm</a>
 											</h3>
 											<!-- End .product-title -->
@@ -143,7 +139,9 @@
 												<span
 													th:if="${item.startDayDiscount.after(#dates.createNow())}"
 													th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
-													VND</span> <span> <span class="new-price"
+													VND</span> <span
+													th:if="${item.startDayDiscount.before(#dates.createNow()) and item.endDayDiscount.after(#dates.createNow())}">
+													<span class="new-price"
 													th:text="${#numbers.formatDecimal(item.price - (item.price * item.discount * 0.01), 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
 														VND</span> <span class="old-price"> <del
 															th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">

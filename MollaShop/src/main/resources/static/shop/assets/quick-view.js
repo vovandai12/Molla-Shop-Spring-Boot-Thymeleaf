@@ -16,15 +16,23 @@ function quickView(id) {
 			wrapper.innerHTML = ``;
 			bodyQuickView.innerHTML = ``;
 			var priceDiscount;
-			if (response.data.discount <= 0) {
-				price = `<h3 class="product-price"><span class="new-price">` + formatVND(response.data.price, ' VND') + `</span></h3>`;
+			var startDate = new Date(response.data.startDayDiscount);
+			var endDate = new Date(response.data.endDayDiscount);
+			var now = new Date();
+			if (response.data.discount <= 0 || response.data.startDayDiscount == null || response.data.endDayDiscount == null) {
+				priceDiscount = `<h3 class="product-price"><span class="new-price">` + formatVND(response.data.price, ' VND') + `</span></h3>`;
 			} else {
-				price = `<h3 class="product-price"><span class="new-price">`
-					+ formatVND(response.data.price - (response.data.price * response.data.discount * 0.01), ' VND') +
-					`</span><span class="old-price"><del>` + formatVND(response.data.price, ' VND') + `<del></span></h3>`;
+				if (now >= startDate && now <= endDate) {
+					priceDiscount = `<h3 class="product-price"><span class="new-price">`
+						+ formatVND(response.data.price - (response.data.price * response.data.discount * 0.01), ' VND') +
+						`</span><span class="old-price"><del>` + formatVND(response.data.price, ' VND') + `<del></span></h3>`;
+				} else {
+					priceDiscount = `<h3 class="product-price"><span class="new-price">` + formatVND(response.data.price, ' VND') + `</span></h3>`;
+				}
 			}
 			wrapper.innerHTML = `
-				<h2 class="product-title">`+ response.data.name + `</h2>` + price;
+				 <input type="hidden" id="cart_id" name="cart_id" value="`+ id + `">
+				<h2 class="product-title">`+ response.data.name + `</h2>` + priceDiscount;
 			bodyQuickView.append(wrapper);
 		});
 	viewImages(id);
@@ -51,7 +59,6 @@ async function viewImages(id) {
 
 	initGallery();
 	setTimeout(slideImage, 3000);
-console.log(images);
 }
 
 function initGallery() {

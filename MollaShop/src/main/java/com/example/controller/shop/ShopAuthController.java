@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +32,7 @@ public class ShopAuthController {
 
 	@PostMapping(value = "/login")
 	@ResponseBody
-	public ResponseEntity<String> loginSubmit(Model model, @RequestBody Login login) {
+	public ResponseEntity<String> loginSubmit(@RequestBody Login login) {
 		if (!userService.existsByUsername(login.getUsername()))
 			return new ResponseEntity<String>("Tên đăng nhập không tồn tại", HttpStatus.INTERNAL_SERVER_ERROR);
 		securityService.autoLogin(login.getUsername(), login.getPassword());
@@ -42,7 +41,7 @@ public class ShopAuthController {
 
 	@PostMapping(value = "/register")
 	@ResponseBody
-	public ResponseEntity<String> registerSubmit(Model model, @RequestBody Register register) {
+	public ResponseEntity<String> registerSubmit(@RequestBody Register register) {
 		if (userService.existsByUsername(register.getUsername()))
 			return new ResponseEntity<String>("Tên đăng nhập đã được sử dụng", HttpStatus.INTERNAL_SERVER_ERROR);
 		if (userService.existsByEmail(register.getEmail()))

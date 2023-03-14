@@ -1,5 +1,6 @@
 package com.example.controller.shop;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.dto.Item;
 import com.example.model.Brand;
 import com.example.model.Category;
 import com.example.service.BrandService;
+import com.example.service.CartService;
 import com.example.service.CategoryService;
 
 @Controller
@@ -23,6 +26,9 @@ public class ShopLayoutController {
 	
 	@Autowired
 	BrandService brandService;
+	
+	@Autowired
+	CartService cart;
 
 	@GetMapping(value = "/category")
 	public ResponseEntity<List<Category>> categoryApi() {
@@ -34,5 +40,15 @@ public class ShopLayoutController {
 	public ResponseEntity<List<Brand>> brandApi() {
 		List<Brand> list = brandService.findAll();
 		return new ResponseEntity<List<Brand>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/get-count-cart")
+	public ResponseEntity<Integer> getCountApi() {
+		return new ResponseEntity<Integer>(cart.getCount(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/get-cart-items")
+	public ResponseEntity<Collection<Item>> getItemApi() {
+		return new ResponseEntity<Collection<Item>>(cart.getItems(), HttpStatus.OK);
 	}
 }

@@ -5,13 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,18 +20,25 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
-//@Table(name = "order_details")
+@Entity
+@Table(name = "order_details")
 public class OrderDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
-			@Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy") })
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private String id;
+	private Long id;
+	
+	@Column(name = "name", nullable = true, columnDefinition = "nvarchar(max)")
+	private String name;
+	
+	@Column(name = "banner", nullable = true, columnDefinition = "varchar(max)")
+	private String banner;
+	
+	@Column(name = "size", nullable = true, columnDefinition = "varchar(50)")
+	private String size;
 
 	@Column(name = "price")
 	private float price;
@@ -45,10 +50,10 @@ public class OrderDetail implements Serializable {
 	private int quantity;
 
 	@ManyToOne
-	@JoinColumn(name = "id_product")
+	@JoinColumn(name = "product_id")
 	private Product product;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_order")
+	@JoinColumn(name = "order_id")
 	private Order order;
 }

@@ -43,7 +43,9 @@
 								<thead>
 									<tr>
 										<th>Sản phẩm</th>
+										<th>Kích thước</th>
 										<th>Giá</th>
+										<th>Giảm giá / 1 sản phẩm</th>
 										<th>Số lượng</th>
 										<th>Tổng tiền</th>
 										<th></th>
@@ -51,63 +53,41 @@
 								</thead>
 
 								<tbody>
-									<tr>
+									<tr th:each="item, i : ${carts}"
+										th:with="totalPrice = ${item.discount > 0 ? (item.price - (item.price * item.discount * 0.01)) * item.quantity : item.price * item.quantity}">
 										<td class="product-col">
 											<div class="product">
 												<figure class="product-media">
-													<a href="#"> <img
-														src="assets/images/products/table/product-1.jpg"
+													<a th:href="@{/molla/product-detail(id=${item.id})}"> <img
+														th:src="${item.image} == null ? '/shop/assets/images/no-image.jpg' : '/uploads/' + ${item.image}"
 														alt="Product image">
 													</a>
 												</figure>
 
 												<h3 class="product-title">
-													<a href="#">Beige knitted elastic runner shoes</a>
+													<a th:href="@{/molla/product-detail(id=${item.id})}"
+														th:text="${item.name}"></a>
 												</h3>
 												<!-- End .product-title -->
-											</div>
-											<!-- End .product -->
+											</div> <!-- End .product -->
 										</td>
-										<td class="price-col">$84.00</td>
+										<td th:text="${item.size}" class="text-center text-danger"></td>
+										<td class="price-col"
+											th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">$84.00</td>
+										<td th:text="${item.discount + ' %'}"
+											class="text-center text-danger"></td>
 										<td class="quantity-col">
 											<div class="cart-product-quantity">
-												<input type="number" class="form-control" value="1" min="1"
-													max="10" step="1" data-decimals="0" required>
-											</div>
-											<!-- End .cart-product-quantity -->
+												<input type="number" class="form-control"
+													th:value="${item.quantity}" min="1" max="10" step="1"
+													data-decimals="0" required>
+											</div> <!-- End .cart-product-quantity -->
 										</td>
-										<td class="total-col">$84.00</td>
-										<td class="remove-col"><button class="btn-remove">
-												<i class="icon-close"></i>
-											</button></td>
-									</tr>
-									<tr>
-										<td class="product-col">
-											<div class="product">
-												<figure class="product-media">
-													<a href="#"> <img
-														src="assets/images/products/table/product-2.jpg"
-														alt="Product image">
-													</a>
-												</figure>
-
-												<h3 class="product-title">
-													<a href="#">Blue utility pinafore denim dress</a>
-												</h3>
-												<!-- End .product-title -->
-											</div>
-											<!-- End .product -->
-										</td>
-										<td class="price-col">$76.00</td>
-										<td class="quantity-col">
-											<div class="cart-product-quantity">
-												<input type="number" class="form-control" value="1" min="1"
-													max="10" step="1" data-decimals="0" required>
-											</div>
-											<!-- End .cart-product-quantity -->
-										</td>
-										<td class="total-col">$76.00</td>
-										<td class="remove-col"><button class="btn-remove">
+										<td class="total-col"
+											th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
+										<td class="remove-col"><button class="btn-remove"
+												th:data-id="${item.id}" th:data-name="${item.name}"
+												th:onclick="removeCartItem(this.getAttribute('data-id'),this.getAttribute('data-name'))">
 												<i class="icon-close"></i>
 											</button></td>
 									</tr>
@@ -125,7 +105,8 @@
 									<tbody>
 										<tr class="summary-subtotal">
 											<td>Tổng tiền:</td>
-											<td>$160.00</td>
+											<td
+												th:text="${#numbers.formatDecimal(totalCart, 0, 'COMMA', 0, 'POINT')} + ' VND'">$160.00</td>
 										</tr>
 										<!-- End .summary-subtotal -->
 										<tr class="summary-shipping">
@@ -140,8 +121,7 @@
 														class="custom-control-input"> <label
 														class="custom-control-label" for="free-shipping">Miễn
 														phí vận chuyển</label>
-												</div>
-												<!-- End .custom-control -->
+												</div> <!-- End .custom-control -->
 											</td>
 											<td>$0.00</td>
 										</tr>
@@ -154,8 +134,7 @@
 														class="custom-control-input"> <label
 														class="custom-control-label" for="standart-shipping">Tiêu
 														chuẩn:</label>
-												</div>
-												<!-- End .custom-control -->
+												</div> <!-- End .custom-control -->
 											</td>
 											<td>$10.00</td>
 										</tr>
@@ -168,16 +147,15 @@
 														class="custom-control-input"> <label
 														class="custom-control-label" for="express-shipping">Chính
 														xác:</label>
-												</div>
-												<!-- End .custom-control -->
+												</div> <!-- End .custom-control -->
 											</td>
 											<td>$20.00</td>
 										</tr>
 										<!-- End .summary-shipping-row -->
 
 										<tr class="summary-shipping-estimate">
-											<td>Địa chỉ đặt hàng<br> <a href="dashboard.html">Chọn
-													địa chỉ</a></td>
+											<td>Địa chỉ đặt hàng<br> <a href="#">Chọn địa
+													chỉ</a></td>
 											<td>&nbsp;</td>
 										</tr>
 										<!-- End .summary-shipping-estimate -->

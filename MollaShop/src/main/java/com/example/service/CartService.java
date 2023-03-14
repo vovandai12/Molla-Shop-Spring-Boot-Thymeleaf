@@ -11,7 +11,7 @@ public interface CartService {
 	 * @param id là mã mặt hàng cần thêm
 	 * @return mặt hàng đã được thêm vào hoặc cập nhật số lượng
 	 */
-	Item add(Long id);
+	Item add(Long id, String size, int qty);
 
 	/**
 	 * Xóa mặt hàng khỏi giỏ

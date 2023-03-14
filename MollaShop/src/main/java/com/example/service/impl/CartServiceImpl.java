@@ -24,20 +24,24 @@ public class CartServiceImpl implements CartService {
 	ProductService productService;
 
 	@Override
-	public Item add(Long id) {
+	public Item add(Long id, String size, int qty) {
 		if (getItem(id) == null) {
 			Product product = productService.findById(id).get();
 			Item item = new Item();
 			item.setId(id);
 			item.setName(product.getName());
 			item.setImage(product.getBanner());
+			item.setSize(size);
 			item.setPrice(product.getPrice());
-			Long dateNow = (new Date()).getTime();
-			if (product.getDiscount() > 0 && product.getStartDayDiscount().getTime() <= dateNow
-					&& product.getEndDayDiscount().getTime() >= dateNow) {
-				item.setDiscount(product.getDiscount());
+			if (product.getDiscount() > 0 && product.getStartDayDiscount() != null
+					&& product.getEndDayDiscount() != null) {
+				Long dateNow = (new Date()).getTime();
+				if (product.getStartDayDiscount().getTime() <= dateNow
+						&& product.getEndDayDiscount().getTime() >= dateNow) {
+					item.setDiscount(product.getDiscount());
+				}
 			}
-			item.setQuantity(1);
+			item.setQuantity(qty);
 			map.put(id, item);
 		} else {
 			map.forEach((key, value) -> {
@@ -97,11 +101,10 @@ public class CartServiceImpl implements CartService {
 	public float getTotail() {
 		float amount = 0;
 		for (Item item : map.values()) {
-			if (item.getDiscount() == 0)
+			if (item.getDiscount() <= 0)
 				amount += item.getPrice() * item.getQuantity();
 			else
-				amount += (item.getPrice() * item.getQuantity())
-						- (item.getPrice() * item.getQuantity() * item.getDiscount() * 0.01);
+				amount += (item.getPrice() - (item.getPrice() * item.getDiscount() * 0.01))* item.getQuantity();
 		}
 		return amount;
 	}

@@ -13,6 +13,7 @@ public class Item {
 	private Long id;
 	private String name;
 	private String image;
+	private String size;
 	private float price;
 	private float discount = 0;
 	private int quantity;

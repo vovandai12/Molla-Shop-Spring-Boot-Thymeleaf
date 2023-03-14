@@ -12,22 +12,14 @@
 		<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
 			<div class="container d-flex align-items-center">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item"><a href="#">Products</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Sticky
-						Info</li>
+					<li class="breadcrumb-item"><a th:href="@{/molla/home}">Trang
+							chủ</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/molla/shop}">Cửa
+							hàng</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Chi
+						tiết sản phẩm</li>
 				</ol>
 
-				<nav class="product-pager ml-auto" aria-label="Product">
-					<a class="product-pager-link product-pager-prev" href="#"
-						aria-label="Previous" tabindex="-1"> <i
-						class="icon-angle-left"></i> <span>Prev</span>
-					</a> <a class="product-pager-link product-pager-next" href="#"
-						aria-label="Next" tabindex="-1"> <span>Next</span> <i
-						class="icon-angle-right"></i>
-					</a>
-				</nav>
-				<!-- End .pager-nav -->
 			</div>
 			<!-- End .container -->
 		</nav>
@@ -39,34 +31,29 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="product-gallery product-gallery-separated">
-								<span class="product-label label-sale">Sale</span>
-								<figure class="product-separated-item">
-									<img src="assets/images/products/single/sticky/1.jpg"
-										data-zoom-image="assets/images/products/single/sticky/1-big.jpg"
-										alt="product image">
 
-									<a href="#" id="btn-separated-gallery"
-										class="btn-product-gallery"> <i class="icon-arrows"></i>
-									</a>
-								</figure>
+								<span
+									th:if="${product.startDayDiscount != null and product.endDayDiscount != null and product.discount > 0}">
+									<span class="product-label label-sale"
+									th:if="${product.startDayDiscount.before(#dates.createNow()) and product.endDayDiscount.after(#dates.createNow())}"
+									th:text="${product.discount + ' % giảm'}"></span>
+								</span> <span
+									th:if="${product.startDayDiscount != null and product.endDayDiscount != null and product.discount > 0}">
+									<span class="product-label"
+									th:if="${product.startDayDiscount.after(#dates.createNow())}">Sắp
+										giảm giá</span>
+								</span>
 
-								<figure class="product-separated-item">
-									<img src="assets/images/products/single/sticky/2.jpg"
-										data-zoom-image="assets/images/products/single/sticky/2-big.jpg"
-										alt="product image">
-								</figure>
+								<div class="row">
+									<div class="col-md-6" th:each="item, i : ${listImage}">
+										<figure class="product-separated-item">
+											<img
+												th:src="${item.name} == null ? '/shop/assets/images/no-image.jpg' : '/uploads/' + ${item.name}"
+												alt="product image">
+										</figure>
+									</div>
+								</div>
 
-								<figure class="product-separated-item">
-									<img src="assets/images/products/single/sticky/3.jpg"
-										data-zoom-image="assets/images/products/single/sticky/3-big.jpg"
-										alt="product image">
-								</figure>
-
-								<figure class="product-separated-item">
-									<img src="assets/images/products/single/sticky/4.jpg"
-										data-zoom-image="assets/images/products/single/sticky/4-big.jpg"
-										alt="product image">
-								</figure>
 							</div>
 							<!-- End .product-gallery -->
 						</div>
@@ -74,40 +61,34 @@
 
 						<div class="col-md-6">
 							<div class="product-details sticky-content">
-								<h1 class="product-title">Brown faux fur longline coat</h1>
+								<h1 class="product-title" th:text="${product.name}"></h1>
 								<!-- End .product-title -->
 
-								<div class="ratings-container">
-									<div class="ratings">
-										<div class="ratings-val" style="width: 80%;"></div>
-										<!-- End .ratings-val -->
-									</div>
-									<!-- End .ratings -->
-									<a class="ratings-text" href="#product-accordion"
-										id="review-link">( 2 Reviews )</a>
-								</div>
-								<!-- End .rating-container -->
+								<div class="product-price"
+									th:if="${product.startDayDiscount == null or product.endDayDiscount == null or product.discount <= 0}"
+									th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+									VND</div>
 
-								<div class="product-price">
-									<span class="new-price">$190.00</span> <span class="old-price">$310.00</span>
+								<div class="product-price"
+									th:if="${product.startDayDiscount != null and product.endDayDiscount != null and product.discount > 0}">
+									<span
+										th:if="${product.startDayDiscount.after(#dates.createNow())}"
+										th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+										VND</span> <span> <span class="new-price"
+										th:text="${#numbers.formatDecimal(product.price - (product.price * product.discount * 0.01), 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+											VND</span> <span class="old-price"> <del
+												th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">
+												150.000 VND</del></span>
+
+									</span>
 								</div>
 								<!-- End .product-price -->
 
-								<div class="product-content">
-									<p>Sed egestas, ante et vulputate volutpat, eros pede
-										semper est, vitae luctus metus libero eu augue. Morbi purus
-										libero, faucibus adipiscing. Sed lectus.</p>
-								</div>
-								<!-- End .product-content -->
-
-								<div class="product-countdown" data-until="2019, 10, 29"></div>
-								<!-- End .product-countdown -->
-
 								<div class="details-filter-row details-row-size">
-									<label for="size">Size:</label>
+									<label for="size_product">Kích thước:</label>
 									<div class="select-custom">
-										<select name="size" id="size" class="form-control">
-											<option value="#" selected="selected">Select a size</option>
+										<select name="cart_detail_size" id="cart_detail_size"
+											class="form-control">
 											<option value="s">Small</option>
 											<option value="m">Medium</option>
 											<option value="l">Large</option>
@@ -115,44 +96,38 @@
 										</select>
 									</div>
 									<!-- End .select-custom -->
-
-									<a href="#" class="size-guide"><i class="icon-th-list"></i>size
-										guide</a>
 								</div>
 								<!-- End .details-filter-row -->
 
 								<div class="details-filter-row details-row-size">
-									<label for="qty">Qty:</label>
+									<label for="qty">Số lượng:</label>
 									<div class="product-details-quantity">
-										<input type="number" id="qty" class="form-control" value="1"
-											min="1" max="10" step="1" data-decimals="0" required>
+										<input type="number" id="cart_detail_qty" class="form-control"
+											value="1" min="1" max="10" step="1" data-decimals="0"
+											required>
 									</div>
 									<!-- End .product-details-quantity -->
 								</div>
 								<!-- End .details-filter-row -->
 
 								<div class="product-details-action">
-									<a href="#" class="btn-product btn-cart"><span>add
-											to cart</span></a>
+									<a th:data-id="${product.id}"
+										th:onclick="addCartDetail(this.getAttribute('data-id'))"
+										class="btn-product btn-cart"><span>Thêm vào giỏ
+											hàng</span></a>
 
 									<div class="details-action-wrapper">
-										<a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add
-												to Wishlist</span></a> <a href="#" class="btn-product btn-compare"
-											title="Compare"><span>Add to Compare</span></a>
+										<a href="#" class="btn-product btn-wishlist" title="Yêu thích"><span>Yêu
+												thích</span></a>
 									</div>
 									<!-- End .details-action-wrapper -->
 								</div>
 								<!-- End .product-details-action -->
 
 								<div class="product-details-footer">
-									<div class="product-cat">
-										<span>Category:</span> <a href="#">Women</a>, <a href="#">Dresses</a>,
-										<a href="#">Yellow</a>
-									</div>
-									<!-- End .product-cat -->
 
 									<div class="social-icons social-icons-sm">
-										<span class="social-label">Share:</span> <a href="#"
+										<span class="social-label">Chia sẻ:</span> <a href="#"
 											class="social-icon" title="Facebook" target="_blank"><i
 											class="icon-facebook-f"></i></a> <a href="#" class="social-icon"
 											title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
@@ -171,7 +146,8 @@
 											<h2 class="card-title">
 												<a class="collapsed" role="button" data-toggle="collapse"
 													href="#product-accordion-desc" aria-expanded="false"
-													aria-controls="product-accordion-desc"> Description </a>
+													aria-controls="product-accordion-desc"> Mô tả sản phẩm
+												</a>
 											</h2>
 										</div>
 										<!-- End .card-header -->
@@ -179,26 +155,8 @@
 											aria-labelledby="product-desc-heading"
 											data-parent="#product-accordion">
 											<div class="card-body">
-												<div class="product-desc-content">
-													<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-														elit. Donec odio. Quisque volutpat mattis eros. Nullam
-														malesuada erat ut turpis. Suspendisse urna viverra non,
-														semper suscipit, posuere a, pede. Donec nec justo eget
-														felis facilisis fermentum. Aliquam porttitor mauris sit
-														amet orci.</p>
-													<ul>
-														<li>Nunc nec porttitor turpis. In eu risus enim. In
-															vitae mollis elit.</li>
-														<li>Vivamus finibus vel mauris ut vehicula.</li>
-														<li>Nullam a magna porttitor, dictum risus nec,
-															faucibus sapien.</li>
-													</ul>
-
-													<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-														elit. Donec odio. Quisque volutpat mattis eros. Nullam
-														malesuada erat ut turpis. Suspendisse urna viverra non,
-														semper suscipit, posuere a, pede.</p>
-												</div>
+												<div class="product-desc-content"
+													th:utext="${product.description}"></div>
 												<!-- End .product-desc-content -->
 											</div>
 											<!-- End .card-body -->
@@ -212,8 +170,8 @@
 											<h2 class="card-title">
 												<a role="button" data-toggle="collapse"
 													href="#product-accordion-info" aria-expanded="true"
-													aria-controls="product-accordion-info"> Additional
-													Information </a>
+													aria-controls="product-accordion-info"> Thông tin sản
+													phẩm </a>
 											</h2>
 										</div>
 										<!-- End .card-header -->
@@ -221,26 +179,8 @@
 											aria-labelledby="product-info-heading"
 											data-parent="#product-accordion">
 											<div class="card-body">
-												<div class="product-desc-content">
-													<p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-														elit. Donec odio. Quisque volutpat mattis eros. Nullam
-														malesuada erat ut turpis. Suspendisse urna viverra non,
-														semper suscipit, posuere a, pede. Donec nec justo eget
-														felis facilisis fermentum. Aliquam porttitor mauris sit
-														amet orci.</p>
+												<div class="product-desc-content" th:utext="${product.info}">
 
-													<h3>Fabric & care</h3>
-													<ul>
-														<li>100% Polyester</li>
-														<li>Do not iron</li>
-														<li>Do not wash</li>
-														<li>Do not bleach</li>
-														<li>Do not tumble dry</li>
-														<li>Professional dry clean only</li>
-													</ul>
-
-													<h3>Size</h3>
-													<p>S, M, L, XL</p>
 												</div>
 												<!-- End .product-desc-content -->
 											</div>
@@ -255,8 +195,8 @@
 											<h2 class="card-title">
 												<a class="collapsed" role="button" data-toggle="collapse"
 													href="#product-accordion-shipping" aria-expanded="false"
-													aria-controls="product-accordion-shipping"> Shipping &
-													Returns </a>
+													aria-controls="product-accordion-shipping"> Vẫn chuyển
+												</a>
 											</h2>
 										</div>
 										<!-- End .card-header -->
@@ -266,121 +206,17 @@
 											<div class="card-body">
 												<div class="product-desc-content">
 													<p>
-														We deliver to over 100 countries around the world. For
-														full details of the delivery options we offer, please view
-														our <a href="#">Delivery information</a><br> We hope
-														you’ll love every purchase, but if you ever need to return
-														an item you can do so within a month of receipt. For full
-														details of how to make a return, please view our <a
-															href="#">Returns information</a>
+														Chúng tôi giao hàng đến hơn 100 quốc gia trên thế giới. Vì
+														chi tiết đầy đủ về các tùy chọn giao hàng chúng tôi cung
+														cấp, vui lòng xem <a href="#">Thông tin giao hàng</a><br>
+														của chúng tôi Chúng tôi hy vọng bạn sẽ thích mỗi lần mua
+														hàng, nhưng nếu bạn cần quay lại một mặt hàng bạn có thể
+														làm như vậy trong vòng một tháng kể từ khi nhận được. Cho
+														đầy đủ chi tiết về cách trả lại, vui lòng xem <a của chúng
+															tôi href="#">Trả về thông tin</a>
 													</p>
 												</div>
 												<!-- End .product-desc-content -->
-											</div>
-											<!-- End .card-body -->
-										</div>
-										<!-- End .collapse -->
-									</div>
-									<!-- End .card -->
-
-									<div class="card card-box card-sm">
-										<div class="card-header" id="product-review-heading">
-											<h2 class="card-title">
-												<a class="collapsed" role="button" data-toggle="collapse"
-													href="#product-accordion-review" aria-expanded="false"
-													aria-controls="product-accordion-review"> Reviews (2) </a>
-											</h2>
-										</div>
-										<!-- End .card-header -->
-										<div id="product-accordion-review" class="collapse"
-											aria-labelledby="product-review-heading"
-											data-parent="#product-accordion">
-											<div class="card-body">
-												<div class="reviews">
-													<div class="review">
-														<div class="row no-gutters">
-															<div class="col-auto">
-																<h4>
-																	<a href="#">Samanta J.</a>
-																</h4>
-																<div class="ratings-container">
-																	<div class="ratings">
-																		<div class="ratings-val" style="width: 80%;"></div>
-																		<!-- End .ratings-val -->
-																	</div>
-																	<!-- End .ratings -->
-																</div>
-																<!-- End .rating-container -->
-																<span class="review-date">6 days ago</span>
-															</div>
-															<!-- End .col -->
-															<div class="col">
-																<h4>Good, perfect size</h4>
-
-																<div class="review-content">
-																	<p>Lorem ipsum dolor sit amet, consectetur
-																		adipisicing elit. Ducimus cum dolores assumenda
-																		asperiores facilis porro reprehenderit animi culpa
-																		atque blanditiis commodi perspiciatis doloremque,
-																		possimus, explicabo, autem fugit beatae quae voluptas!</p>
-																</div>
-																<!-- End .review-content -->
-
-																<div class="review-action">
-																	<a href="#"><i class="icon-thumbs-up"></i>Helpful
-																		(2)</a> <a href="#"><i class="icon-thumbs-down"></i>Unhelpful
-																		(0)</a>
-																</div>
-																<!-- End .review-action -->
-															</div>
-															<!-- End .col-auto -->
-														</div>
-														<!-- End .row -->
-													</div>
-													<!-- End .review -->
-
-													<div class="review">
-														<div class="row no-gutters">
-															<div class="col-auto">
-																<h4>
-																	<a href="#">John Doe</a>
-																</h4>
-																<div class="ratings-container">
-																	<div class="ratings">
-																		<div class="ratings-val" style="width: 100%;"></div>
-																		<!-- End .ratings-val -->
-																	</div>
-																	<!-- End .ratings -->
-																</div>
-																<!-- End .rating-container -->
-																<span class="review-date">5 days ago</span>
-															</div>
-															<!-- End .col -->
-															<div class="col">
-																<h4>Very good</h4>
-
-																<div class="review-content">
-																	<p>Sed, molestias, tempore? Ex dolor esse iure hic
-																		veniam laborum blanditiis laudantium iste amet. Cum
-																		non voluptate eos enim, ab cumque nam, modi, quas iure
-																		illum repellendus, blanditiis perspiciatis beatae!</p>
-																</div>
-																<!-- End .review-content -->
-
-																<div class="review-action">
-																	<a href="#"><i class="icon-thumbs-up"></i>Helpful
-																		(0)</a> <a href="#"><i class="icon-thumbs-down"></i>Unhelpful
-																		(0)</a>
-																</div>
-																<!-- End .review-action -->
-															</div>
-															<!-- End .col-auto -->
-														</div>
-														<!-- End .row -->
-													</div>
-													<!-- End .review -->
-												</div>
-												<!-- End .reviews -->
 											</div>
 											<!-- End .card-body -->
 										</div>

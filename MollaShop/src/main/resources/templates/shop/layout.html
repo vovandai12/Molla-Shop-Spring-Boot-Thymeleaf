@@ -106,16 +106,26 @@
 	<script th:src="@{/shop/assets/quick-view.js}"></script>
 	<script th:src="@{/shop/assets/auth.js}"></script>
 	<script th:src="@{/shop/assets/cart.js}"></script>
+	<script th:src="@{/shop/assets/view-cart.js}"></script>
+	<script th:src="@{/shop/assets/info-account.js}"></script>
 	<script th:inline="javascript">
 /*<![CDATA[*/
 
     var error = /*[[${error}]]*/ '';
-    console.log(error);
 	if(error !== null){
 		Swal.fire({
 			  icon: 'error',
 			  title: 'Thông báo lỗi',
 			  text: error,
+			})
+	}
+
+	var message = /*[[${error}]]*/ '';
+	if(message !== null){
+		Swal.fire({
+			  icon: 'success',
+			  title: 'Thông báo',
+			  text: message,
 			})
 	}
 /*]]>*/

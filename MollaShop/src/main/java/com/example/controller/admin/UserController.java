@@ -132,7 +132,9 @@ public class UserController {
 		if (userDto.getId() != null || !userDto.getId().equals("")) {
 			user = userService.findById(userDto.getId()).get();
 			if (!file.isEmpty()) {
-				storageService.delete(user.getAvatar());
+				if(user.getAvatar() != null) {
+					storageService.delete(user.getAvatar());
+				}
 			}
 		} else {
 			if (userService.existsByUsername(userDto.getUsername())) {

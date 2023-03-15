@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface SecurityService {
+	
+	String username();
+	
 	boolean isAuthenticated();
 
 	void autoLogin(String username, String password);

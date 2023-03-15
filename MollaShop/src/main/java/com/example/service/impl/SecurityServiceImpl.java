@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Service;
 
 import com.example.model.User;
+import com.example.service.CustomUserDetailsService;
 import com.example.service.SecurityService;
 import com.example.service.UserService;
 
@@ -33,6 +34,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
+	@Override
 	public boolean isAuthenticated() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
@@ -63,5 +65,12 @@ public class SecurityServiceImpl implements SecurityService {
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
+	}
+
+	@Override
+	public String username() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetailsService userDetails = (CustomUserDetailsService) authentication.getPrincipal();
+		return userDetails.getUsername();
 	}
 }

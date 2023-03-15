@@ -71,7 +71,6 @@
 												<!-- End .product-title -->
 											</div> <!-- End .product -->
 										</td>
-										<td th:text="${item.size}" class="text-center text-danger"></td>
 										<td class="price-col"
 											th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">$84.00</td>
 										<td th:text="${item.discount + ' %'}"
@@ -79,11 +78,14 @@
 										<td class="quantity-col">
 											<div class="cart-product-quantity">
 												<input type="number" class="form-control"
+													th:id="inputNumberCart + ${item.id}"
+													th:data-id="${item.id}"
+													th:oninput="updateValueDisplay(this.getAttribute('data-id'))"
 													th:value="${item.quantity}" min="1" max="10" step="1"
 													data-decimals="0" required>
 											</div> <!-- End .cart-product-quantity -->
 										</td>
-										<td class="total-col"
+										<td class="total-col" th:id="viewTotailPrice + ${item.id}"
 											th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
 										<td class="remove-col"><button class="btn-remove"
 												th:data-id="${item.id}" th:data-name="${item.name}"
@@ -105,7 +107,7 @@
 									<tbody>
 										<tr class="summary-subtotal">
 											<td>Tổng tiền:</td>
-											<td
+											<td id="totailViewCart"
 												th:text="${#numbers.formatDecimal(totalCart, 0, 'COMMA', 0, 'POINT')} + ' VND'">$160.00</td>
 										</tr>
 										<!-- End .summary-subtotal -->
@@ -154,8 +156,8 @@
 										<!-- End .summary-shipping-row -->
 
 										<tr class="summary-shipping-estimate">
-											<td>Địa chỉ đặt hàng<br> <a href="#">Chọn địa
-													chỉ</a></td>
+											<td>Địa chỉ đặt hàng<br> <a
+												th:href="@{/molla/account/info-account}">Chọn địa chỉ</a></td>
 											<td>&nbsp;</td>
 										</tr>
 										<!-- End .summary-shipping-estimate -->
@@ -169,7 +171,7 @@
 								</table>
 								<!-- End .table table-summary -->
 
-								<a href="checkout.html"
+								<a th:href="@{/molla/check-out}" th:if="${not #lists.isEmpty(carts)}"
 									class="btn btn-outline-primary-2 btn-order btn-block">TIẾN
 									HÀNH THANH TOÁN</a>
 							</div>

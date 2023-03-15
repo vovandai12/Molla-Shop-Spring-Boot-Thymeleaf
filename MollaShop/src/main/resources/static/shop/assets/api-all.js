@@ -99,7 +99,7 @@ $(document).ready(function() {
 						</div>
 						<div class="dropdown-cart-action">
 							<a href="/molla/cart" class="btn btn-primary">Giỏ hàng</a> 
-							<a href="#" class="btn btn-outline-primary-2">
+							<a href="/molla/check-out" class="btn btn-outline-primary-2">
 								<span>Thanh toán</span>
 								<i class="icon-long-arrow-right"></i>
 							</a>

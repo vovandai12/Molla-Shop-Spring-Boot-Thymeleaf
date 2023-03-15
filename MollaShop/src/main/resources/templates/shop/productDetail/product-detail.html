@@ -74,7 +74,9 @@
 									<span
 										th:if="${product.startDayDiscount.after(#dates.createNow())}"
 										th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
-										VND</span> <span> <span class="new-price"
+										VND</span> <span
+										th:if="${product.startDayDiscount.before(#dates.createNow()) and product.endDayDiscount.after(#dates.createNow())}">
+										<span class="new-price"
 										th:text="${#numbers.formatDecimal(product.price - (product.price * product.discount * 0.01), 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
 											VND</span> <span class="old-price"> <del
 												th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">

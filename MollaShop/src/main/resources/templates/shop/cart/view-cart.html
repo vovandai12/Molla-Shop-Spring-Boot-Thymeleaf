@@ -120,12 +120,13 @@
 											<td>
 												<div class="custom-control custom-radio">
 													<input type="radio" id="free-shipping" name="shipping"
-														class="custom-control-input"> <label
+														class="custom-control-input" value="0"
+														th:onclick="handleShipingClick()"> <label
 														class="custom-control-label" for="free-shipping">Miễn
 														phí vận chuyển</label>
 												</div> <!-- End .custom-control -->
 											</td>
-											<td>$0.00</td>
+											<td>0 VND</td>
 										</tr>
 										<!-- End .summary-shipping-row -->
 
@@ -133,12 +134,13 @@
 											<td>
 												<div class="custom-control custom-radio">
 													<input type="radio" id="standart-shipping" name="shipping"
-														class="custom-control-input"> <label
+														class="custom-control-input" value="1"
+														th:onclick="handleShipingClick()"> <label
 														class="custom-control-label" for="standart-shipping">Tiêu
 														chuẩn:</label>
 												</div> <!-- End .custom-control -->
 											</td>
-											<td>$10.00</td>
+											<td>10.000 VND</td>
 										</tr>
 										<!-- End .summary-shipping-row -->
 
@@ -146,12 +148,13 @@
 											<td>
 												<div class="custom-control custom-radio">
 													<input type="radio" id="express-shipping" name="shipping"
-														class="custom-control-input"> <label
+														class="custom-control-input" value="2"
+														th:onclick="handleShipingClick()"> <label
 														class="custom-control-label" for="express-shipping">Chính
 														xác:</label>
 												</div> <!-- End .custom-control -->
 											</td>
-											<td>$20.00</td>
+											<td>20.000 VND</td>
 										</tr>
 										<!-- End .summary-shipping-row -->
 
@@ -164,14 +167,16 @@
 
 										<tr class="summary-total">
 											<td>Tổng:</td>
-											<td>$160.00</td>
+											<td id="totailViewOrder"
+												th:text="${#numbers.formatDecimal(totalCart, 0, 'COMMA', 0, 'POINT')} + ' VND'">$160.00</td>
 										</tr>
 										<!-- End .summary-total -->
 									</tbody>
 								</table>
 								<!-- End .table table-summary -->
 
-								<a th:href="@{/molla/check-out}" th:if="${not #lists.isEmpty(carts)}"
+								<a th:href="@{/molla/check-out}"
+									th:if="${not #lists.isEmpty(carts)}"
 									class="btn btn-outline-primary-2 btn-order btn-block">TIẾN
 									HÀNH THANH TOÁN</a>
 							</div>

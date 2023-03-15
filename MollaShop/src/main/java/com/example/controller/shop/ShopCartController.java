@@ -63,10 +63,21 @@ public class ShopCartController {
 		Collection<Item> items = cartService.getItems();
 		return new ResponseEntity<Collection<Item>>(items, HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/shipping")
+	public ResponseEntity<?> shipping(@RequestParam("ship") int ship) {
+		session.set("shipping", ship);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 	@GetMapping(value = "/find-qty")
 	public ResponseEntity<Integer> maxQty(Model model, @RequestParam(name = "id") Long id) {
 		Product product = productService.findById(id).get();
 		return new ResponseEntity<Integer>(product.getQuantity(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/totail-cart")
+	public ResponseEntity<Float> totailCart() {
+		return new ResponseEntity<Float>(cartService.getTotail(), HttpStatus.OK);
 	}
 }

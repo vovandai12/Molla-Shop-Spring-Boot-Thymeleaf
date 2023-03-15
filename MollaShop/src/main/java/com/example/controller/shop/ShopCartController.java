@@ -58,10 +58,9 @@ public class ShopCartController {
 	}
 
 	@PostMapping(value = "/update")
-	public ResponseEntity<Collection<Item>> update(@RequestParam("id") Long id, @RequestParam("sst") Integer quantity) {
+	public ResponseEntity<Item> update(@RequestParam("id") Long id, @RequestParam("sst") Integer quantity) {
 		cartService.update(id, quantity);
-		Collection<Item> items = cartService.getItems();
-		return new ResponseEntity<Collection<Item>>(items, HttpStatus.OK);
+		return new ResponseEntity<Item>(cartService.getItem(id), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/shipping")

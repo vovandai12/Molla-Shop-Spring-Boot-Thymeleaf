@@ -1,0 +1,32 @@
+package com.example.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.model.OrderDetail;
+import com.example.repository.OrderDetailRepository;
+import com.example.service.OrderDetailService;
+
+@Service
+public class OrderDetailServiceImpl implements OrderDetailService {
+	
+	@Autowired
+	OrderDetailRepository orderDetailRepository;
+
+	@Override
+	public Optional<OrderDetail> saveOrUpdate(OrderDetail orderDetail) {
+		OrderDetail orderDetailOld = orderDetailRepository.save(orderDetail);
+		return Optional.of(orderDetailOld);
+	}
+
+	@Override
+	public List<OrderDetail> findAllByOrderId(Long id) {
+		List<OrderDetail> list = orderDetailRepository.findAllByOrderId(id);
+		return list;
+	}
+	
+	
+}

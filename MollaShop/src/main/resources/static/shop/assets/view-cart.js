@@ -10,21 +10,20 @@ function updateValueDisplay(id) {
 
 	axios.post(baseUrl + '/molla/cart/update?id=' + id + "&sst=" + qty)
 		.then(function(response) {
-			let totailCart = 0;
-			response.data.forEach(item => {
-				let price = 0;
-				if (item.discount > 0) {
-					totailCart += (item.price - (item.price * item.discount * 0.01)) * item.quantity;
-					price = (item.price - (item.price * item.discount * 0.01)) * item.quantity;
-				} else {
-					totailCart += item.price * item.quantity;
-					price = item.price * item.quantity;
-				}
-				document.getElementById('viewTotailPrice' + id).innerHTML = formatVND(price, ' VND');
-			});
-			document.getElementById('totailViewCart').innerHTML = formatVND(totailCart, ' VND');
-			document.getElementById('totailViewOrder').innerHTML = formatVND(totailCart, ' VND');
+			let price = 0;
+			if (response.data.discount > 0) {
+				price = (response.data.price - (response.data.price * response.data.discount * 0.01)) * response.data.quantity;
+			} else {
+				price = response.data.price * response.data.quantity;
+			}
+			document.getElementById('viewTotailPrice' + id).innerHTML = formatVND(price, ' VND');
+		})
 
+	axios.get(baseUrl + '/molla/cart/totail-cart')
+		.then(function(response) {
+			let totailCart = 0;
+			totailCart = response.data;
+			document.getElementById('totailViewCart').innerHTML = formatVND(totailCart, ' VND');
 			const ship = document.querySelector('input[name="shipping"]:checked').value;
 			if (ship === 1) {
 				totailCart = totailCart + 10000;
@@ -43,7 +42,7 @@ function handleShipingClick() {
 			let totailViewOrder = 0;
 			totailViewOrder = response.data;
 			const ship = document.querySelector('input[name="shipping"]:checked').value;
-			var shipping = 0;
+			let shipping = 0;
 			if (ship === '1') {
 				totailViewOrder = totailViewOrder + 10000;
 				shipping = 1;
@@ -53,7 +52,7 @@ function handleShipingClick() {
 			} else {
 				totailViewOrder = totailViewOrder + 0;
 			}
-			axios.post(baseUrl + '/molla/cart/shipping?ship='+ shipping);
+			axios.post(baseUrl + '/molla/cart/shipping?ship=' + shipping);
 			document.getElementById('totailViewOrder').innerHTML = formatVND(totailViewOrder, ' VND');
 		});
 }

@@ -90,12 +90,6 @@
 												<td
 													th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VND'">$84.00</td>
 											</tr>
-
-											<tr class="summary-subtotal">
-												<td>Tổng tiền:</td>
-												<td
-													th:text="${#numbers.formatDecimal(totalCart, 0, 'COMMA', 0, 'POINT')} + ' VND'">$160.00</td>
-											</tr>
 											<!-- End .summary-subtotal -->
 											<tr th:if="${shipping == '0'}">
 												<td>Giao hàng:</td>
@@ -118,120 +112,6 @@
 										</tbody>
 									</table>
 									<!-- End .table table-summary -->
-
-									<div class="accordion-summary" id="accordion-payment">
-										<div class="card">
-											<div class="card-header" id="heading-1">
-												<h2 class="card-title">
-													<a role="button" data-toggle="collapse" href="#collapse-1"
-														aria-expanded="true" aria-controls="collapse-1" name="pay" value="1">
-														Chuyển khoản trực tiếp </a>
-												</h2>
-											</div>
-											<!-- End .card-header -->
-											<div id="collapse-1" class="collapse show"
-												aria-labelledby="heading-1" data-parent="#accordion-payment">
-												<div class="card-body">Thực hiện thanh toán của bạn
-													trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng
-													sử dụng ID đơn đặt hàng của bạn làm tài liệu tham khảo
-													thanh toán. đơn đặt hàng của bạn sẽ không được vận chuyển
-													cho đến khi tiền đã xóa trong tài khoản của chúng tôi.</div>
-												<!-- End .card-body -->
-											</div>
-											<!-- End .collapse -->
-										</div>
-										<!-- End .card -->
-
-										<div class="card">
-											<div class="card-header" id="heading-2">
-												<h2 class="card-title">
-													<a class="collapsed" role="button" data-toggle="collapse"
-														href="#collapse-2" aria-expanded="false"
-														aria-controls="collapse-2" name="pay" value="2"> Kiểm tra thanh toán </a>
-												</h2>
-											</div>
-											<!-- End .card-header -->
-											<div id="collapse-2" class="collapse"
-												aria-labelledby="heading-2" data-parent="#accordion-payment">
-												<div class="card-body">Thực hiện thanh toán khi bạn
-													đơn hàng vào trạng thái đã vẫn chuyển.</div>
-												<!-- End .card-body -->
-											</div>
-											<!-- End .collapse -->
-										</div>
-										<!-- End .card -->
-
-										<div class="card">
-											<div class="card-header" id="heading-3">
-												<h2 class="card-title">
-													<a class="collapsed" role="button" data-toggle="collapse"
-														href="#collapse-3" aria-expanded="false"
-														aria-controls="collapse-3" name="pay" value="3"> Thanh toán khi giao hàng </a>
-												</h2>
-											</div>
-											<!-- End .card-header -->
-											<div id="collapse-3" class="collapse"
-												aria-labelledby="heading-3" data-parent="#accordion-payment">
-												<div class="card-body">Thực hiện thanh toán khi khách
-													hàng đã nhận và kiểm tra hàng, số tiền thanh toán giao cho
-													người vận chuyển.</div>
-												<!-- End .card-body -->
-											</div>
-											<!-- End .collapse -->
-										</div>
-										<!-- End .card -->
-
-										<div class="card">
-											<div class="card-header" id="heading-4">
-												<h2 class="card-title">
-													<a class="collapsed" role="button" data-toggle="collapse"
-														href="#collapse-4" aria-expanded="false"
-														aria-controls="collapse-4"  name="pay" value="4"> PayPal <small
-														class="float-right paypal-link">Tài khoản PayPal
-															là gì?</small>
-													</a>
-												</h2>
-											</div>
-											<!-- End .card-header -->
-											<div id="collapse-4" class="collapse"
-												aria-labelledby="heading-4" data-parent="#accordion-payment">
-												<div class="card-body">PayPal là dịch vụ thanh toán
-													trực tuyến cho phép cá nhân và doanh nghiệp chuyển tiền
-													theo phương thức điện tử. Bạn có thể gửi, nhận và giữ tiền
-													bằng nhiều loại tiền tệ trên thế giới.</div>
-												<!-- End .card-body -->
-											</div>
-											<!-- End .collapse -->
-										</div>
-										<!-- End .card -->
-
-										<div class="card">
-											<div class="card-header" id="heading-5">
-												<h2 class="card-title">
-													<a class="collapsed" role="button" data-toggle="collapse"
-														href="#collapse-5" aria-expanded="false"
-														aria-controls="collapse-5"> Thẻ tín dụng <img
-														th:src="@{/shop/assets/images/payments-summary.png}"
-														alt="payments cards">
-													</a>
-												</h2>
-											</div>
-											<!-- End .card-header -->
-											<div id="collapse-5" class="collapse"
-												aria-labelledby="heading-5" data-parent="#accordion-payment">
-												<div class="card-body">Thẻ tín dụng (credit card) là
-													thẻ cho phép chủ thẻ thực hiện giao dịch thẻ trong phạm vi
-													hạn mức tín dụng đã được cấp theo thỏa thuận với tổ chức
-													phát hành thẻ. Nói một cách đơn giản, thẻ tín dụng là loại
-													thẻ giúp bạn mua hàng trước và thanh toán lại cho ngân hàng
-													sau.</div>
-												<!-- End .card-body -->
-											</div>
-											<!-- End .collapse -->
-										</div>
-										<!-- End .card -->
-									</div>
-									<!-- End .accordion -->
 
 									<button type="submit" th:if="${not #lists.isEmpty(carts)}"
 										class="btn btn-outline-primary-2 btn-order btn-block">

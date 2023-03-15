@@ -101,7 +101,7 @@ public class CartServiceImpl implements CartService {
 	public float getTotail() {
 		float amount = 0;
 		for (Item item : map.values()) {
-			if (item.getDiscount() <= 0)
+			if (item.getDiscount() == 0)
 				amount += item.getPrice() * item.getQuantity();
 			else
 				amount += (item.getPrice() - (item.getPrice() * item.getDiscount() * 0.01))* item.getQuantity();

@@ -131,17 +131,3 @@ function viewImages(id) {
 			});
 		});
 }
-/**
-console.log(response)
-			var wrapperImage = document.createElement('div');
-			response.data.forEach((element) => {
-				console.log(element)
-				wrapperImage.innerHTML = `<div class="col-sm-6 col-lg-6">
-											<div class="card">
-												<img src="/uploads/`+ element.name + `" class="card-img-top"
-											alt="...">
-											</div>
-										</div>`;
-				console.log(wrapperImage)
-				bodyViewProductImages.append(wrapperImage);
-			}); */

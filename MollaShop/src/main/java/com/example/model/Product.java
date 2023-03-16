@@ -89,4 +89,8 @@ public class Product extends Auditable implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<OrderDetail> orderDetail;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private List<Like> likes;
 }

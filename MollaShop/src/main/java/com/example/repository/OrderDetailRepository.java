@@ -11,4 +11,5 @@ import com.example.model.OrderDetail;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
 	
 	List<OrderDetail> findAllByOrderId(Long id);
+	
 }

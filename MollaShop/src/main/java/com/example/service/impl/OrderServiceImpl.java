@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteById(Long id) {
 		orderRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Order> findAllByOrderAddressEmail(String email) {
+		return orderRepository.findAllByOrderAddressEmailOrderByCreatedDateAsc(email);
 	}
 }

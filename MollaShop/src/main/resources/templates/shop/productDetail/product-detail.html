@@ -115,11 +115,13 @@
 								<div class="product-details-action">
 									<a th:data-id="${product.id}"
 										th:onclick="addCartDetail(this.getAttribute('data-id'))"
-										class="btn-product btn-cart"><span>Thêm vào giỏ
-											hàng</span></a>
+										class="btn-product btn-cart" style="cursor: pointer;"><span>Thêm
+											vào giỏ hàng</span></a>
 
 									<div class="details-action-wrapper">
-										<a href="#" class="btn-product btn-wishlist" title="Yêu thích"><span>Yêu
+										<a href="#" class="btn-product btn-wishlist" title="Yêu thích"
+											th:data-id="${product.id}"
+											th:onclick="addLikeShop(this.getAttribute('data-id'))"><span>Yêu
 												thích</span></a>
 									</div>
 									<!-- End .details-action-wrapper -->

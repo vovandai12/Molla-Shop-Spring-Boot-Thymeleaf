@@ -2,13 +2,16 @@ package com.example.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +21,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.common.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -79,5 +83,9 @@ public class User extends Auditable implements Serializable {
 	@Column(name = "last_login_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastLoginDate;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Like> likes;
 
 }

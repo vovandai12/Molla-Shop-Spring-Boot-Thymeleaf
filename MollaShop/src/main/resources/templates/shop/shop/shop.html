@@ -100,9 +100,12 @@
 											</a>
 
 											<div class="product-action-vertical">
-												<a href="#"
+												<a th:data-id="${item.id}"
+													th:onclick="addLikeShop(this.getAttribute('data-id'))"
 													class="btn-product-icon btn-wishlist btn-expandable"><span>Yêu
-														thích</span></a> <a href="#quickView-modal" data-toggle="modal"
+														thích</span></a> 
+												
+												<a href="#quickView-modal" data-toggle="modal"
 													th:data-id="${item.id}"
 													th:onclick="quickView(this.getAttribute('data-id'))"
 													class="btn-product-icon btn-quickview"><span>Xem</span></a>

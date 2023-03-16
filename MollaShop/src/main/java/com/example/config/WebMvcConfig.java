@@ -67,7 +67,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						"/molla/product-detail/**",
 						"/molla/cart/**",
 						"/molla/account/**",
-						"/molla/check-out/**")
+						"/molla/check-out/**",
+						"/molla/like/**",
+						"/molla/order/**")
 				.permitAll()
 				.antMatchers()
 				.access("hasRole('ROLE_USER')")

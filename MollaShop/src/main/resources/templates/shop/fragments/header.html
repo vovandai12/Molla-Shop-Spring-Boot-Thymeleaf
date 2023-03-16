@@ -86,7 +86,7 @@
 									class="col-lg-4 col-xxl-5col d-flex justify-content-end align-items-center">
 									<div class="header-dropdown-link">
 
-										<a sec:authorize="isAuthenticated()" href="#"
+										<a sec:authorize="isAuthenticated()" th:href="@{/molla/like}"
 											class="wishlist-link"> <i class="icon-heart-o"></i> <span
 											class="wishlist-count">3</span> <span class="wishlist-txt">Yêu
 												thích</span>
@@ -115,14 +115,14 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-auto col-lg-3 col-xl-3 col-xxl-2 header-left">
-							<div class="dropdown category-dropdown show is-on"
-								data-visible="true">
+							<div class="dropdown category-dropdown is-on"
+								data-visible="false">
 								<a href="#" class="dropdown-toggle" role="button"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" data-display="static"
+									aria-expanded="true" data-display="static"
 									title="Danh mục sản phẩm">Danh mục sản phẩm </a>
 
-								<div class="dropdown-menu show">
+								<div class="dropdown-menu">
 									<nav class="side-nav">
 										<ul class="menu-vertical sf-arrows" id="menu__item__data">
 											<!-- Danh sách danh mục -->
@@ -202,9 +202,8 @@
 										class="sf-with-ul">Người dùng</a>
 										<ul>
 											<li><a th:href="@{/molla/account/info-account}">Thông tin tài khoản</a></li>
-											<li><a href="#">Danh sách yêu thích</a></li>
-											<li><a href="#">Danh sách đặt hàng</a></li>
-											<li><a href="#">Tra cứu đơn hàng</a></li>
+											<li><a th:href="@{/molla/like}">Danh sách yêu thích</a></li>
+											<li><a th:href="@{/molla/order}">Danh sách đặt hàng</a></li>
 											<li><a href="#">Đổi mật khẩu</a></li>
 										</ul></li>
 								</ul>

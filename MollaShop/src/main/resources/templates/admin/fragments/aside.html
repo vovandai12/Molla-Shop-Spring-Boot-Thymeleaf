@@ -32,7 +32,7 @@
 						<i class="bi bi-box"></i> <span>Sản phẩm</span>
 				</a></li>
 
-				<li class="nav-item"><a class="nav-link collapsed" href="#">
+				<li class="nav-item"><a class="nav-link collapsed" th:href="@{/orders}">
 						<i class="bi bi-paypal"></i> <span>Hoá đơn</span>
 				</a></li>
 
@@ -43,13 +43,13 @@
 				</a>
 					<ul id="charts-nav" class="nav-content collapse "
 						data-bs-parent="#sidebar-nav">
-						<li><a href="#"> <i class="bi bi-circle"></i><span>Doanh
+						<li><a th:href="@{/statistics/revenue}"> <i class="bi bi-circle"></i><span>Doanh
 									thu</span>
 						</a></li>
-						<li><a href="#"> <i class="bi bi-circle"></i><span>Lượt
+						<li><a th:href="@{/statistics/like}"> <i class="bi bi-circle"></i><span>Lượt
 									thích</span>
 						</a></li>
-						<li><a href="#"> <i class="bi bi-circle"></i><span>Lượt
+						<li><a th:href="@{/statistics/view}"> <i class="bi bi-circle"></i><span>Lượt
 									truy cập</span>
 						</a></li>
 					</ul></li>

@@ -27,6 +27,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		List<OrderDetail> list = orderDetailRepository.findAllByOrderId(id);
 		return list;
 	}
+
+	@Override
+	public List<Object[]> statisticsRevenueMonthByYear(int year) {
+		return orderDetailRepository.statisticsRevenueMonthByYear(year);
+	}
 	
 	
 }

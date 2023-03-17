@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout.html}">
+
+<head>
+<title>Thống kê lượt xem</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="pagetitle">
+			<h1>Thống kê lượt xem</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Lượt truy cập,
+							lượt xem</a></li>
+					<!-- <li class="breadcrumb-item active">Dashboard</li> -->
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section dashboard">
+			<div class="row">
+
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Thống kê lượt truy cập theo tháng</h5>
+
+							<!-- Area Chart -->
+							<div id="areaChart" style="min-height: 400px;" class="echart"></div>
+
+							<script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  echarts.init(document.querySelector("#areaChart")).setOption({
+                    xAxis: {
+                      type: 'category',
+                      boundaryGap: false,
+                      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                      type: 'value'
+                    },
+                    series: [{
+                      data: [820, 932, 901, 934, 1290, 1330, 1320],
+                      type: 'line',
+                      smooth: true,
+                      areaStyle: {}
+                    }]
+                  });
+                });
+              </script>
+							<!-- End Area Chart -->
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Thống kê lượt xem theo sản phẩm</h5>
+
+							<!-- Pie Chart -->
+							<div id="pieChart" style="min-height: 400px;" class="echart"></div>
+
+							<script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  echarts.init(document.querySelector("#pieChart")).setOption({
+                    title: {
+                      text: 'Referer of a Website',
+                      subtext: 'Fake Data',
+                      left: 'center'
+                    },
+                    tooltip: {
+                      trigger: 'item'
+                    },
+                    legend: {
+                      orient: 'vertical',
+                      left: 'left'
+                    },
+                    series: [{
+                      name: 'Access From',
+                      type: 'pie',
+                      radius: '50%',
+                      data: [{
+                        value: 1048,
+                        name: 'Search Engine'
+                      },
+                      {
+                        value: 735,
+                        name: 'Direct'
+                      },
+                      {
+                        value: 580,
+                        name: 'Email'
+                      },
+                      {
+                        value: 484,
+                        name: 'Union Ads'
+                      },
+                      {
+                        value: 300,
+                        name: 'Video Ads'
+                      }
+                      ],
+                      emphasis: {
+                        itemStyle: {
+                          shadowBlur: 10,
+                          shadowOffsetX: 0,
+                          shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                      }
+                    }]
+                  });
+                });
+              </script>
+							<!-- End Pie Chart -->
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+	</div>
+</body>
+
+</html>

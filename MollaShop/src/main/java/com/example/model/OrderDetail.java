@@ -30,29 +30,29 @@ public class OrderDetail implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "name", nullable = true, columnDefinition = "nvarchar(max)")
 	private String name;
-	
+
 	@Column(name = "banner", nullable = true, columnDefinition = "varchar(max)")
 	private String banner;
-	
+
 	@Column(name = "size", nullable = true, columnDefinition = "varchar(50)")
 	private String size;
 
 	@Column(name = "price")
 	private float price;
-	
+
 	@Column(name = "discount")
 	private float discount;
-	
+
 	@Column(name = "quantity")
 	private int quantity;
 
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;

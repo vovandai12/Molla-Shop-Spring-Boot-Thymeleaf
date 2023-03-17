@@ -10,4 +10,6 @@ public interface OrderDetailService {
 	Optional<OrderDetail> saveOrUpdate(OrderDetail orderDetail);
 
 	List<OrderDetail> findAllByOrderId(Long id);
+	
+	List<Object[]> statisticsRevenueMonthByYear(int year);
 }

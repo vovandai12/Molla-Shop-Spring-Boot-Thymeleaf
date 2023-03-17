@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.model.Order;
@@ -37,4 +39,15 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> findAllByOrderAddressEmail(String email) {
 		return orderRepository.findAllByOrderAddressEmailOrderByCreatedDateAsc(email);
 	}
+
+	@Override
+	public Page<Order> findAllByOrderAddressEmailLike(String keyword, Pageable pageable) {
+		return orderRepository.findAllByOrderAddressEmailLike(keyword, pageable);
+	}
+
+	@Override
+	public List<Integer> getYearOrder() {
+		return orderRepository.getYearOrder();
+	}
+
 }

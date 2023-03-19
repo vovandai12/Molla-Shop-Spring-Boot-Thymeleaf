@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,21 @@ public class OrderAddressServiceImpl implements OrderAddressService {
 	@Override
 	public Optional<OrderAddress> findByEmail(String email) {
 		return orderAddressRepository.findByEmail(email);
+	}
+
+	@Override
+	public List<Object[]> getTotailOrderByDate(String dateNow, String dateTo) {
+		return orderAddressRepository.getTotailOrderByDate(dateNow, dateTo);
+	}
+
+	@Override
+	public List<Object[]> getTotailOrderByMonth(int month) {
+		return orderAddressRepository.getTotailOrderByMonth(month);
+	}
+
+	@Override
+	public List<Object[]> getTotailOrderByYear(int year) {
+		return orderAddressRepository.getTotailOrderByYear(year);
 	}
 
 }

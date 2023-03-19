@@ -12,4 +12,10 @@ public interface OrderDetailService {
 	List<OrderDetail> findAllByOrderId(Long id);
 	
 	List<Object[]> statisticsRevenueMonthByYear(int year);
+	
+	List<Object[]> getSalerByDate(String dateNow, String dateTo);
+	
+	List<Object[]> getSalerByMonth(int month);
+	
+	List<Object[]> getSalerByYear(int year);
 }

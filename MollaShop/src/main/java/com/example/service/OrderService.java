@@ -21,4 +21,18 @@ public interface OrderService {
 	Page<Order> findAllByOrderAddressEmailLike(String keyword, Pageable pageable);
 	
 	List<Integer> getYearOrder();
+	
+	List<Object[]> statisticsRevenueCategoryByYear(int year);
+	
+	int getCountOrderByDate(String dateNow, String dateTo);
+	
+	int getCountOrderByMonth(int month);
+	
+	int getCountOrderByYear(int year);
+	
+	float getRevenueByDate(String dateNow, String dateTo);
+	
+	float getRevenueByMonth(int month);
+	
+	float getRevenueByYear(int year);
 }

@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import com.example.common.MailType;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +17,9 @@ public class MailInfo {
 	private String subject;
 	private String body;
 	private String[] attachments;
-	private String mailType;
+	private MailType mailType;
 
-	public MailInfo(String to, String subject, String body, String mailType) {
+	public MailInfo(String to, String subject, String body, MailType mailType) {
 		this.from = "Molla Shop online <MollaShop@gmail.com>";
 		this.to = to;
 		this.subject = subject;

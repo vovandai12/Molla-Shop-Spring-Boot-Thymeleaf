@@ -50,4 +50,45 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.getYearOrder();
 	}
 
+	@Override
+	public List<Object[]> statisticsRevenueCategoryByYear(int year) {
+		return orderRepository.statisticsRevenueCategoryByYear(year);
+	}
+
+	@Override
+	public int getCountOrderByDate(String dateNow, String dateTo) {
+		return orderRepository.getCountOrderByDate(dateNow, dateTo);
+	}
+
+	@Override
+	public int getCountOrderByMonth(int month) {
+		return orderRepository.getCountOrderByMonth(month);
+	}
+
+	@Override
+	public int getCountOrderByYear(int year) {
+		return orderRepository.getCountOrderByYear(year);
+	}
+
+	@Override
+	public float getRevenueByDate(String dateNow, String dateTo) {
+		if(orderRepository.getRevenueByDate(dateNow, dateTo) == null)
+			return 0;
+		return orderRepository.getRevenueByDate(dateNow, dateTo);
+	}
+
+	@Override
+	public float getRevenueByMonth(int month) {
+		if(orderRepository.getRevenueByMonth(month) == null)
+			return 0;
+		return orderRepository.getRevenueByMonth(month);
+	}
+
+	@Override
+	public float getRevenueByYear(int year) {
+		if(orderRepository.getRevenueByYear(year) == null)
+			return 0;
+		return orderRepository.getRevenueByYear(year);
+	}
+
 }

@@ -12,5 +12,9 @@ public interface LikeService {
 	void deleteById(Long id);
 	
 	List<Like> findAllByUserId(String id);
+	
+	List<Object[]> statisticsLikeMonthByYear(int year);
+	
+	List<Object[]> statisticsLikeCategory();
 
 }

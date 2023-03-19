@@ -12,14 +12,15 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.example.common.MailType;
 import com.example.dto.MailInfo;
 import com.example.service.MailerService;
-import com.example.utils.MailTypeEnum;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
@@ -65,6 +66,11 @@ public class MailerServiceImpl implements MailerService {
 				helper.addAttachment(file.getName(), file);
 			}
 		}
+		helper.addInline("image-1", new ClassPathResource("static/mail/image-1.png"));
+		helper.addInline("image-2", new ClassPathResource("static/mail/image-2.png"));
+		helper.addInline("image-3", new ClassPathResource("static/mail/image-3.png"));
+		helper.addInline("image-4", new ClassPathResource("static/mail/image-4.png"));
+		helper.addInline("forgot-password", new ClassPathResource("static/mail/image-5.png"));
 		// Gửi message đến SMTP server
 		sender.send(message);
 	}
@@ -72,22 +78,20 @@ public class MailerServiceImpl implements MailerService {
 	@Autowired
 	Configuration configuration;
 
-	String getEmailContent(String body, String mailType) throws IOException, TemplateException {
+	String getEmailContent(String body, MailType mailType) throws IOException, TemplateException {
 		StringWriter stringWriter = new StringWriter();
 		Map<String, Object> model = new HashMap<>();
 		String template = null;
-		if (mailType.equals(MailTypeEnum.LOGIN.type)) {
-			template = "login-account.ftlh";
-		}else if (mailType.equals(MailTypeEnum.FORGOT.type)) {
-			template = "forgot-password-account.ftlh";
-			model.put("code", body);
+		if (mailType == MailType.FORGOT) {
+			template = "forgot-password.ftlh";
+//			model.put("code", body);
 		}
 		configuration.getTemplate(template).process(model, stringWriter);
 		return stringWriter.getBuffer().toString();
 	}
 
 	@Override
-	public void send(String to, String subject, String body, String mailType) throws MessagingException {
+	public void send(String to, String subject, String body, MailType mailType) throws MessagingException {
 		this.send(new MailInfo(to, subject, body, mailType));
 	}
 
@@ -97,7 +101,7 @@ public class MailerServiceImpl implements MailerService {
 	}
 
 	@Override
-	public void queue(String to, String subject, String body, String mailType) {
+	public void queue(String to, String subject, String body, MailType mailType) {
 		queue(new MailInfo(to, subject, body, mailType));
 	}
 

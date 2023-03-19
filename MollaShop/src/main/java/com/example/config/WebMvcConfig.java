@@ -53,9 +53,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().authorizeRequests()
+		http.cors().and().csrf().disable()
+		//Tất cả có thể truy cập
+				.authorizeRequests()
 				.antMatchers(
 						"/uploads/**",
+						"/error/**",
 						"/admin/**",
 						"/shop/**",
 						"/auth/**",
@@ -70,9 +73,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						"/molla/check-out/**",
 						"/molla/like/**",
 						"/molla/order/**")
-				.permitAll()
+				.permitAll().and()
+				
+		//Chỉ có user mới có thể truy cập
+				.exceptionHandling()
+                .accessDeniedPage("/error/molla/404")
+                .and()
+				.authorizeRequests()
 				.antMatchers()
-				.access("hasRole('ROLE_USER')")
+				.access("hasRole('ROLE_USER')").and()
+		//Chỉ có admin mới có thể truy cập	
+				.exceptionHandling()
+                .accessDeniedPage("/error/admin/404")
+                .and()
+				.authorizeRequests()
 				.antMatchers(
 						"/home/**",
 						"/users/**",

@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findAllByNameLikeAndBrandId(String keyword, Long id, Pageable pageable) {
 		return productRepository.findAllByNameLikeAndBrandId(keyword, id, pageable);
+	}
+
+	@Override
+	public List<Object[]> statisticsViewCategory() {
+		return productRepository.statisticsViewCategory();
 	}
 }

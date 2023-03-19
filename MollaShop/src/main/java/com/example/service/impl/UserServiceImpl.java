@@ -72,4 +72,24 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findAllByUsernameLike(keyword, pageable);
 	}
 
+	@Override
+	public List<Object[]> statisticsViewMonthByYear(int year) {
+		return userRepository.statisticsViewMonthByYear(year);
+	}
+
+	@Override
+	public int getCustomersByDate(String dateNow, String dateTo) {
+		return userRepository.getCustomersByDate(dateNow, dateTo);
+	}
+
+	@Override
+	public int getCustomersByMonth(int month) {
+		return userRepository.getCustomersByMonth(month);
+	}
+
+	@Override
+	public int getCustomersByYear(int year) {
+		return userRepository.getCustomersByYear(year);
+	}
+
 }

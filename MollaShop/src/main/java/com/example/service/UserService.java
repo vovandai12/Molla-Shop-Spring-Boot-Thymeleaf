@@ -26,4 +26,12 @@ public interface UserService {
 	Boolean existsByEmail(String email);
 	
 	Page<User> findAllByUsernameLike(String keyword, Pageable pageable);
+	
+	List<Object[]> statisticsViewMonthByYear(int year);
+	
+	int getCustomersByDate(String dateNow, String dateTo);
+	
+	int getCustomersByMonth(int month);
+	
+	int getCustomersByYear(int year);
 }

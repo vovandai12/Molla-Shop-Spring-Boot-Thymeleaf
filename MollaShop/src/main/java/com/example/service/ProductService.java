@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -22,4 +23,6 @@ public interface ProductService {
 	Page<Product> findAllByNameLikeAndCategoryId(String keyword, Long id, Pageable pageable);
 
 	Page<Product> findAllByNameLikeAndBrandId(String keyword, Long id, Pageable pageable);
+	
+	List<Object[]> statisticsViewCategory();
 }

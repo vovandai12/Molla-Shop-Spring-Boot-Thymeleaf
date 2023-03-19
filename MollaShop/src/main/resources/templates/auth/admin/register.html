@@ -45,8 +45,8 @@
 
 	<main>
 		<div class="container">
-		
-		<div th:replace="admin/fragments/message:: message"></div>
+
+			<div th:replace="admin/fragments/message:: message"></div>
 
 			<section
 				class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -56,8 +56,9 @@
 							class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
 							<div class="d-flex justify-content-center py-4">
-								<a th:href="@{/home}" class="logo d-flex align-items-center w-auto">
-									<img th:src="@{/admin/assets/img/logo.png}" alt=""> <span
+								<a th:href="@{/home}"
+									class="logo d-flex align-items-center w-auto"> <img
+									th:src="@{/admin/assets/img/logo.png}" alt=""> <span
 									class="d-none d-lg-block">NiceAdmin</span>
 								</a>
 							</div>
@@ -79,8 +80,8 @@
 										th:object="${register}">
 										<div class="col-12">
 											<label for="email" class="form-label">Email</label> <input
-												type="email" name="email" class="form-control" id="email" placeholder="Email"
-												th:field="*{email}"> <span
+												type="email" name="email" class="form-control" id="email"
+												placeholder="Email" th:field="*{email}"> <span
 												class="badge rounded-pill bg-danger"
 												th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 										</div>
@@ -88,7 +89,8 @@
 										<div class="col-12">
 											<label for="username" class="form-label">Tên đăng
 												nhập</label> <input type="text" name="username" class="form-control"
-												id="username" placeholder="Tên đăng nhập" th:field="*{username}"> <span
+												id="username" placeholder="Tên đăng nhập"
+												th:field="*{username}"> <span
 												class="badge rounded-pill bg-danger"
 												th:if="${#fields.hasErrors('username')}"
 												th:errors="*{username}"></span>
@@ -97,8 +99,8 @@
 										<div class="col-12">
 											<label for="password" class="form-label">Mật khẩu</label> <input
 												type="password" name="password" class="form-control"
-												id="password" placeholder="Mật khẩu" th:field="*{password}"> <span
-												class="badge rounded-pill bg-danger"
+												id="password" placeholder="Mật khẩu" th:field="*{password}">
+											<span class="badge rounded-pill bg-danger"
 												th:if="${#fields.hasErrors('password')}"
 												th:errors="*{password}"></span>
 										</div>
@@ -111,6 +113,9 @@
 											<p class="small mb-0">
 												Bạn đã có tài khoản? <a th:href="@{/auth/login}">Đăng
 													nhập</a>
+											</p>
+											<p class="small mb-0">
+												Bạn quên mật khẩu? <a th:href="@{/auth/forgot-password}">Quên mật khẩu</a>
 											</p>
 										</div>
 									</form>

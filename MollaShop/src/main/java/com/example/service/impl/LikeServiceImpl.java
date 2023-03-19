@@ -31,4 +31,14 @@ public class LikeServiceImpl implements LikeService {
 	public List<Like> findAllByUserId(String id) {
 		return likeRepository.findAllByUserId(id);
 	}
+
+	@Override
+	public List<Object[]> statisticsLikeMonthByYear(int year) {
+		return likeRepository.statisticsLikeMonthByYear(year);
+	}
+
+	@Override
+	public List<Object[]> statisticsLikeCategory() {
+		return likeRepository.statisticsLikeCategory();
+	}
 }

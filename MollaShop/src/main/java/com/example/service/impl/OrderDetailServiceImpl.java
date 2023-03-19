@@ -32,6 +32,21 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public List<Object[]> statisticsRevenueMonthByYear(int year) {
 		return orderDetailRepository.statisticsRevenueMonthByYear(year);
 	}
+
+	@Override
+	public List<Object[]> getSalerByDate(String dateNow, String dateTo) {
+		return orderDetailRepository.getSalerByDate(dateNow, dateTo);
+	}
+
+	@Override
+	public List<Object[]> getSalerByMonth(int month) {
+		return orderDetailRepository.getSalerByMonth(month);
+	}
+
+	@Override
+	public List<Object[]> getSalerByYear(int year) {
+		return orderDetailRepository.getSalerByYear(year);
+	}
 	
 	
 }

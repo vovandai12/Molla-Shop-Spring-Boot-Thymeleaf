@@ -29,10 +29,9 @@
 							<h5 class="card-title">
 								Thống kê doanh thu theo tháng trong năm <label for="yearRevenue">
 									<select class="form-select" id="yearRevenue" name="yearRevenue"
-									onchange="demotest()">
+									onchange="handleYearRevenue()">
 										<option th:each="item, i : ${years}" th:value="${item}"
 											th:text="${item}"></option>
-											<option value="444444444">4444444444</option>
 								</select>
 								</label>
 							</h5>
@@ -49,62 +48,18 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">Thống kê theo danh mục</h5>
+							<h5 class="card-title">
+								Thống kê theo danh mục trong năm <label for="yearRevenueCategory">
+									<select class="form-select" id="yearRevenueCategory" name="yearRevenueCategory"
+									onchange="handleYearRevenueCategory()">
+										<option th:each="item, i : ${years}" th:value="${item}"
+											th:text="${item}"></option>
+								</select>
+								</label>
+							</h5>
 
 							<!-- Pie Chart -->
-							<div id="pieChart" style="min-height: 400px;" class="echart"></div>
-
-							<script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#pieChart")).setOption({
-                    title: {
-                      text: 'Referer of a Website',
-                      subtext: 'Fake Data',
-                      left: 'center'
-                    },
-                    tooltip: {
-                      trigger: 'item'
-                    },
-                    legend: {
-                      orient: 'vertical',
-                      left: 'left'
-                    },
-                    series: [{
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                      data: [{
-                        value: 1048,
-                        name: 'Search Engine'
-                      },
-                      {
-                        value: 735,
-                        name: 'Direct'
-                      },
-                      {
-                        value: 580,
-                        name: 'Email'
-                      },
-                      {
-                        value: 484,
-                        name: 'Union Ads'
-                      },
-                      {
-                        value: 300,
-                        name: 'Video Ads'
-                      }
-                      ],
-                      emphasis: {
-                        itemStyle: {
-                          shadowBlur: 10,
-                          shadowOffsetX: 0,
-                          shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                      }
-                    }]
-                  });
-                });
-              </script>
+							<div id="revenueCategoryStatisticsYear" style="min-height: 400px;" class="echart"></div>
 							<!-- End Pie Chart -->
 
 						</div>

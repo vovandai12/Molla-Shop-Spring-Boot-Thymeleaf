@@ -20,7 +20,7 @@ public class FreeMarkerConfig {
 	@Bean
 	public FreeMarkerConfigurer getFreemarkerConfig() {
 		FreeMarkerConfigurer config = new FreeMarkerConfigurer();
-		config.setTemplateLoaderPath("/WEB-INF/email-template/");
+		config.setTemplateLoaderPath("classpath:/templates/mail");
 		return config;
 	}
 

@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import java.util.List;
+
 import com.example.common.MailType;
 
 import lombok.AllArgsConstructor;
@@ -15,11 +17,11 @@ public class MailInfo {
 	private String[] cc;
 	private String[] bcc;
 	private String subject;
-	private String body;
+	private List<Object[]> body;
 	private String[] attachments;
 	private MailType mailType;
 
-	public MailInfo(String to, String subject, String body, MailType mailType) {
+	public MailInfo(String to, String subject, List<Object[]> body, MailType mailType) {
 		this.from = "Molla Shop online <MollaShop@gmail.com>";
 		this.to = to;
 		this.subject = subject;

@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 
 import com.example.common.MailType;
@@ -22,7 +24,7 @@ public interface MailerService {
 	 * @param body    nội dung email
 	 * @throws MessagingException lỗi gửi email
 	 */
-	void send(String to, String subject, String body, MailType mailType) throws MessagingException;
+	void send(String to, String subject, List<Object[]> body, MailType mailType) throws MessagingException;
 
 	/**
 	 * Xếp mail vào hàng đợi
@@ -38,6 +40,6 @@ public interface MailerService {
 	 * @param subject tiêu đề email
 	 * @param body    nội dung email
 	 */
-	void queue(String to, String subject, String body, MailType mailType);
+	void queue(String to, String subject, List<Object[]> body, MailType mailType);
 
 }

@@ -92,4 +92,17 @@ public class UserServiceImpl implements UserService{
 		return userRepository.getCustomersByYear(year);
 	}
 
+	@Override
+	public Optional<User> findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public Optional<User> changePassword(String username, String password) {
+		User user = userRepository.findByUsername(username).get();
+		user.setPassword(passwordEncoder.encode(password));
+		User userOld = userRepository.save(user);
+		return Optional.of(userOld);
+	}
+
 }

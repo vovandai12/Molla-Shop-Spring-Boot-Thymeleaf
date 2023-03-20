@@ -70,7 +70,12 @@ public class MailerServiceImpl implements MailerService {
 		helper.addInline("image-2", new ClassPathResource("static/mail/image-2.png"));
 		helper.addInline("image-3", new ClassPathResource("static/mail/image-3.png"));
 		helper.addInline("image-4", new ClassPathResource("static/mail/image-4.png"));
-		helper.addInline("forgot-password", new ClassPathResource("static/mail/image-5.png"));
+		if (mail.getMailType() == MailType.FORGOT) {
+			helper.addInline("forgot-password", new ClassPathResource("static/mail/forgot-password.png"));
+		} else if (mail.getMailType() == MailType.SUCCESS_SERVICE) {
+			helper.addInline("service", new ClassPathResource("static/mail/service.png"));
+			helper.addInline("rate", new ClassPathResource("static/mail/rate.png"));
+		}
 		// Gửi message đến SMTP server
 		sender.send(message);
 	}
@@ -78,20 +83,28 @@ public class MailerServiceImpl implements MailerService {
 	@Autowired
 	Configuration configuration;
 
-	String getEmailContent(String body, MailType mailType) throws IOException, TemplateException {
+	String getEmailContent(List<Object[]> body, MailType mailType) throws IOException, TemplateException {
 		StringWriter stringWriter = new StringWriter();
 		Map<String, Object> model = new HashMap<>();
 		String template = null;
 		if (mailType == MailType.FORGOT) {
 			template = "forgot-password.ftlh";
-//			model.put("code", body);
+			for (Object[] objects : body) {
+				model.put("body", objects[0].toString());
+			}
+		} else if (mailType == MailType.SUCCESS_SERVICE) {
+			template = "success-service.ftlh";
+			for (Object[] objects : body) {
+				model.put("urlLogin", objects[0].toString());
+				model.put("username", objects[1].toString());
+			}
 		}
 		configuration.getTemplate(template).process(model, stringWriter);
 		return stringWriter.getBuffer().toString();
 	}
 
 	@Override
-	public void send(String to, String subject, String body, MailType mailType) throws MessagingException {
+	public void send(String to, String subject, List<Object[]> body, MailType mailType) throws MessagingException {
 		this.send(new MailInfo(to, subject, body, mailType));
 	}
 
@@ -101,7 +114,7 @@ public class MailerServiceImpl implements MailerService {
 	}
 
 	@Override
-	public void queue(String to, String subject, String body, MailType mailType) {
+	public void queue(String to, String subject, List<Object[]> body, MailType mailType) {
 		queue(new MailInfo(to, subject, body, mailType));
 	}
 

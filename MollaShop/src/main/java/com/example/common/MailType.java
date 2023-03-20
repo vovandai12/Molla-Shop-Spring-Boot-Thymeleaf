@@ -1,5 +1,6 @@
 package com.example.common;
 
 public enum MailType { 
-	FORGOT
+	FORGOT,
+	SUCCESS_SERVICE
 }

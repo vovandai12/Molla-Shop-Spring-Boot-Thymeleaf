@@ -20,10 +20,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-    	if (!userRepository.existsByUsername(userName)) {
-    		throw new UsernameNotFoundException("Không tìm thấy người dùng với tên người dùng:" + userName);
-		}
-        Optional<User> user = userRepository.findByUsername(userName);
+    	Optional<User> user = userRepository.findByUsername(userName);
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("Không tìm thấy người dùng với tên người dùng:" + userName);
         }

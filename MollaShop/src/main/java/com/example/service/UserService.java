@@ -15,6 +15,8 @@ public interface UserService {
 	
 	Optional<User> findById(String id);
 	
+	Optional<User> findByEmail(String email);
+	
 	void deleteById(String id);
 	
 	void updateLastLoginDate(User user);
@@ -34,4 +36,6 @@ public interface UserService {
 	int getCustomersByMonth(int month);
 	
 	int getCustomersByYear(int year);
+	
+	Optional<User> changePassword(String username, String password);
 }

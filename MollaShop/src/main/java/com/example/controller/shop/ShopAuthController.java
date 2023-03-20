@@ -1,11 +1,18 @@
 package com.example.controller.shop;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.common.Role;
+import com.example.component.GoogleUtils;
+import com.example.dto.GoogleDto;
 import com.example.dto.Login;
 import com.example.dto.Register;
 import com.example.model.User;
@@ -29,6 +38,9 @@ public class ShopAuthController {
 
 	@Autowired
 	SecurityService securityService;
+
+	@Autowired
+	GoogleUtils googleUtils;
 
 	@PostMapping(value = "/login")
 	@ResponseBody
@@ -60,5 +72,32 @@ public class ShopAuthController {
 	public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
 		securityService.logout(request, response);
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@GetMapping("/login-google")
+	public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
+		String code = request.getParameter("code");
+		if (code == null || code.isEmpty()) {
+			return "redirect:/molla/home?google=error";
+		}
+		String accessToken = googleUtils.getToken(code);
+		GoogleDto googlePojo = googleUtils.getUserInfo(accessToken);
+		UserDetails userDetail = googleUtils.buildUser(googlePojo);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+				userDetail.getAuthorities());
+		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		User user = new User();
+		user.setUsername(googlePojo.getId());
+		user.setFirstName(googlePojo.getGiven_name());
+		user.setLastName(googlePojo.getName());
+		user.setEmail(googlePojo.getEmail());
+		user.setPassword(googlePojo.getId());
+		user.setLogin(true);
+		user.setRole(Role.ROLE_USER);
+		userService.saveOrUpdate(user);
+		
+		return "redirect:/molla/home";
 	}
 }

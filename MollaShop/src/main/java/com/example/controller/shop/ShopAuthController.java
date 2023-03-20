@@ -9,10 +9,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,29 +71,23 @@ public class ShopAuthController {
 	}
 
 	@GetMapping("/login-google")
-	public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
+	public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException{
 		String code = request.getParameter("code");
 		if (code == null || code.isEmpty()) {
 			return "redirect:/molla/home?google=error";
 		}
 		String accessToken = googleUtils.getToken(code);
-		GoogleDto googlePojo = googleUtils.getUserInfo(accessToken);
-		UserDetails userDetail = googleUtils.buildUser(googlePojo);
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
-				userDetail.getAuthorities());
-		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		User user = new User();
-		user.setUsername(googlePojo.getId());
-		user.setFirstName(googlePojo.getGiven_name());
-		user.setLastName(googlePojo.getName());
-		user.setEmail(googlePojo.getEmail());
-		user.setPassword(googlePojo.getId());
-		user.setLogin(true);
-		user.setRole(Role.ROLE_USER);
-		userService.saveOrUpdate(user);
-		
+		GoogleDto google = googleUtils.getUserInfo(accessToken);
+		if (!userService.existsByEmail(google.getEmail())) {
+			User user = new User();
+			user.setUsername(google.getId());
+			user.setEmail(google.getEmail());
+			user.setPassword(google.getId());
+			user.setLogin(true);
+			user.setRole(Role.ROLE_USER);
+			userService.saveOrUpdate(user);
+		}
+		securityService.autoLogin(google.getId(), google.getId());
 		return "redirect:/molla/home";
 	}
 }

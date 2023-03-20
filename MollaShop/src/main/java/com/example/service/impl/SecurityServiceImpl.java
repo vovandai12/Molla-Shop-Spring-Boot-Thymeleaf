@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
+import com.example.component.GoogleUtils;
 import com.example.model.User;
 import com.example.service.CustomUserDetailsService;
 import com.example.service.SecurityService;
@@ -31,6 +32,9 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	GoogleUtils googleUtils;
 
 	private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
@@ -73,4 +77,21 @@ public class SecurityServiceImpl implements SecurityService {
 		CustomUserDetailsService userDetails = (CustomUserDetailsService) authentication.getPrincipal();
 		return userDetails.getUsername();
 	}
+
+//	@Override
+//	public GoogleDto loginGoogle(HttpServletRequest request, String accessToken)
+//			throws ClientProtocolException, IOException {
+//		GoogleDto google = googleUtils.getUserInfo(accessToken);
+//		UserDetails userDetail = googleUtils.buildUser(google);
+//		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
+//				google.getId(), userDetail.getAuthorities());
+//		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
+//		if (userService.existsByEmail(google.getEmail())) {
+//			User user = userService.findByEmail(google.getEmail()).get();
+//			userService.updateLastLoginDate(user);
+//			return null;
+//		}
+//		return google;
+//	}
 }

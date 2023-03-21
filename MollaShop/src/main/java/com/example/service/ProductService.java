@@ -25,4 +25,6 @@ public interface ProductService {
 	Page<Product> findAllByNameLikeAndBrandId(String keyword, Long id, Pageable pageable);
 	
 	List<Object[]> statisticsViewCategory();
+	
+	List<Product> findAllByCategoryId(Long id);
 }

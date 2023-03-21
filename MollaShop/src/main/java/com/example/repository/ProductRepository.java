@@ -21,6 +21,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	Page<Product> findAllByNameLikeAndBrandId(String keyword, Long id, Pageable pageable);
 	
+	List<Product> findAllByCategoryId(Long id);
+	
 	@Query(value = "SELECT "
 			+ "c.name AS name, "
 			+ "SUM(p.views) AS views "

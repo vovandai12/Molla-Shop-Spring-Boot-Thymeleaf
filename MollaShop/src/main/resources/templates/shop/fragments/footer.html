@@ -98,7 +98,7 @@
 									<li><a th:href="@{/molla/about}">Thông tin MollaShop</a></li>
 									<li><a href="#">Cách mua sắm trên MollaShop</a></li>
 									<li><a href="#">FAQ</a></li>
-									<li><a href="#">Liên hệ</a></li>
+									<li><a th:href="@{/molla/contact}">Liên hệ</a></li>
 									<li sec:authorize="!isAuthenticated()"><a
 										href="#signin-modal" data-toggle="modal">Đăng nhập</a></li>
 									<li sec:authorize="isAuthenticated()"><a

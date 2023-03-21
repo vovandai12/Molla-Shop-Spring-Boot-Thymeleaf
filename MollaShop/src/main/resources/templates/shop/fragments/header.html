@@ -87,13 +87,12 @@
 									<div class="header-dropdown-link">
 
 										<a sec:authorize="isAuthenticated()" th:href="@{/molla/like}"
-											class="wishlist-link"> <i class="icon-heart-o"></i> <span
-											class="wishlist-count">3</span> <span class="wishlist-txt">Yêu
-												thích</span>
+											class="wishlist-link"> <i class="icon-heart-o"></i><span
+											class="wishlist-txt">Yêu thích</span>
 										</a>
 
 										<div class="dropdown cart-dropdown" id="menu__cart">
-											
+
 											<!-- End .dropdown-menu -->
 										</div>
 										<!-- End .cart-dropdown -->
@@ -197,11 +196,12 @@
 											<!-- End .row -->
 										</div> <!-- End .megamenu megamenu-md --></li>
 									<li><a th:href="@{/molla/about}">Thông tin</a></li>
-									<li><a href="#">Liên hệ</a></li>
+									<li><a th:href="@{/molla/contact}">Liên hệ</a></li>
 									<li sec:authorize="isAuthenticated()"><a href="#"
 										class="sf-with-ul">Người dùng</a>
 										<ul>
-											<li><a th:href="@{/molla/account/info-account}">Thông tin tài khoản</a></li>
+											<li><a th:href="@{/molla/account/info-account}">Thông
+													tin tài khoản</a></li>
 											<li><a th:href="@{/molla/like}">Danh sách yêu thích</a></li>
 											<li><a th:href="@{/molla/order}">Danh sách đặt hàng</a></li>
 											<li><a href="#">Đổi mật khẩu</a></li>

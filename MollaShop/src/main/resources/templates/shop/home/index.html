@@ -314,7 +314,7 @@
 									style="background-image: url(assets/images/demos/demo-14/banners/banner-bg-1.jpg);">
 									<div class="banner-list-content">
 										<h2>
-											<a href="#">Đồ điện tử</a>
+											<a th:href="@{/molla/shop?category_id=12}">Đồ điện tử</a>
 										</h2>
 									</div>
 									<!-- End .banner-list-content -->
@@ -323,7 +323,7 @@
 
 								<div class="col-sm-6 col-xl-12 col-xxl-6">
 									<div class="banner banner-overlay">
-										<a href="#"> <img
+										<a th:href="@{/molla/shop?category_id=12}"> <img
 											th:src="@{/shop/assets/images/demos/demo-14/banners/banner-5.jpg}"
 											alt="Banner img desc">
 										</a>
@@ -378,27 +378,39 @@
                                             }
                                         }
                                     }'>
-								<div class="product text-center">
+								<div class="product text-center"
+									th:each="item, i : ${listLapTop}">
 									<figure class="product-media">
-										<span class="product-label label-top">Top</span>
-										<a href="product.html"> <img
-											th:src="@{/shop/assets/images/demos/demo-14/products/product-6.jpg}"
+										<span
+											th:if="${item.startDayDiscount != null and item.endDayDiscount != null and item.discount > 0}">
+											<span class="product-label label-sale"
+											th:if="${item.startDayDiscount.before(#dates.createNow()) and item.endDayDiscount.after(#dates.createNow())}"
+											th:text="${item.discount + ' % giảm'}"></span> <span
+											class="product-label"
+											th:if="${item.startDayDiscount.after(#dates.createNow())}">Sắp
+												giảm giá</span>
+										</span>
+										<a th:href="@{/molla/product-detail(id=${item.id})}"> <img
+											th:src="${item.banner} == null ? '/shop/assets/images/no-image.jpg' : '/uploads/' + ${item.banner}"
 											alt="Product image" class="product-image">
 										</a>
 
 										<div class="product-action-vertical">
-											<a href="#" class="btn-product-icon btn-wishlist"
-												title="Add to wishlist"><span>add to wishlist</span></a> <a
-												href="popup/quickView.html"
-												class="btn-product-icon btn-quickview" title="Quick view"><span>Quick
-													view</span></a> <a href="#" class="btn-product-icon btn-compare"
-												title="Compare"><span>Compare</span></a>
+											<a th:data-id="${item.id}"
+												th:onclick="addLikeShop(this.getAttribute('data-id'))"
+												class="btn-product-icon btn-wishlist btn-expandable"><span>Yêu
+													thích</span></a> <a href="#quickView-modal" data-toggle="modal"
+												th:data-id="${item.id}"
+												th:onclick="quickView(this.getAttribute('data-id'))"
+												class="btn-product-icon btn-quickview"><span>Xem</span></a>
 										</div>
 										<!-- End .product-action-vertical -->
 
 										<div class="product-action">
-											<a href="#" class="btn-product btn-cart" title="Add to cart"><span>add
-													to cart</span></a>
+											<a href="#quickView-modal" data-toggle="modal"
+												th:data-id="${item.id}"
+												th:onclick="quickView(this.getAttribute('data-id'))"
+												class="btn-product btn-cart"><span>Thêm giỏ hàng</span></a>
 										</div>
 										<!-- End .product-action -->
 									</figure>
@@ -406,24 +418,35 @@
 
 									<div class="product-body">
 										<div class="product-cat">
-											<a href="#">Laptops</a>
+											<a href="#" th:text="${item.category.name}">Women</a>
 										</div>
 										<!-- End .product-cat -->
 										<h3 class="product-title">
-											<a href="product.html">MacBook Pro 13" Display, i5</a>
+											<a th:href="@{/molla/product-detail(id=${item.id})}"
+												th:text="${item.name}">Tên sản phẩm</a>
 										</h3>
 										<!-- End .product-title -->
-										<div class="product-price">$1,199.99</div>
-										<!-- End .product-price -->
-										<div class="ratings-container">
-											<div class="ratings">
-												<div class="ratings-val" style="width: 100%;"></div>
-												<!-- End .ratings-val -->
-											</div>
-											<!-- End .ratings -->
-											<span class="ratings-text">( 4 Reviews )</span>
+										<div class="product-price"
+											th:if="${item.startDayDiscount == null or item.endDayDiscount == null or item.discount <= 0}"
+											th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+											VND</div>
+
+										<div class="product-price"
+											th:if="${item.startDayDiscount != null and item.endDayDiscount != null and item.discount > 0}">
+											<span
+												th:if="${item.startDayDiscount.after(#dates.createNow())}"
+												th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+												VND</span> <span
+												th:if="${item.startDayDiscount.before(#dates.createNow()) and item.endDayDiscount.after(#dates.createNow())}">
+												<span class="new-price"
+												th:text="${#numbers.formatDecimal(item.price - (item.price * item.discount * 0.01), 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+													VND</span> <span class="old-price"> <del
+														th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">
+														150.000 VND</del></span>
+
+											</span>
 										</div>
-										<!-- End .rating-container -->
+										<!-- End .product-price -->
 									</div>
 									<!-- End .product-body -->
 								</div>
@@ -445,7 +468,7 @@
 									style="background-image: url(assets/images/demos/demo-14/banners/banner-bg-2.jpg);">
 									<div class="banner-list-content">
 										<h2>
-											<a href="#">Nhà bếp </a>
+											<a th:href="@{/molla/shop?category_id=8}">Nhà bếp </a>
 										</h2>
 									</div>
 									<!-- End .banner-list-content -->
@@ -454,7 +477,7 @@
 
 								<div class="col-sm-6 col-xl-12 col-xxl-6">
 									<div class="banner banner-overlay">
-										<a href="#"> <img
+										<a th:href="@{/molla/shop?category_id=8}"> <img
 											th:src="@{/shop/assets/images/demos/demo-14/banners/banner-6.jpg}"
 											alt="Banner img desc">
 										</a>
@@ -505,27 +528,38 @@
                                             }
                                         }
                                     }'>
-								<div class="product text-center">
+								<div class="product text-center" th:each="item, i : ${listCook}">
 									<figure class="product-media">
-										<span class="product-label label-new">New</span>
-										<a href="product.html"> <img
-											th:src="@{/shop/assets/images/demos/demo-14/products/product-10.jpg}"
+										<span
+											th:if="${item.startDayDiscount != null and item.endDayDiscount != null and item.discount > 0}">
+											<span class="product-label label-sale"
+											th:if="${item.startDayDiscount.before(#dates.createNow()) and item.endDayDiscount.after(#dates.createNow())}"
+											th:text="${item.discount + ' % giảm'}"></span> <span
+											class="product-label"
+											th:if="${item.startDayDiscount.after(#dates.createNow())}">Sắp
+												giảm giá</span>
+										</span>
+										<a th:href="@{/molla/product-detail(id=${item.id})}"> <img
+											th:src="${item.banner} == null ? '/shop/assets/images/no-image.jpg' : '/uploads/' + ${item.banner}"
 											alt="Product image" class="product-image">
 										</a>
 
 										<div class="product-action-vertical">
-											<a href="#" class="btn-product-icon btn-wishlist"
-												title="Add to wishlist"><span>add to wishlist</span></a> <a
-												href="popup/quickView.html"
-												class="btn-product-icon btn-quickview" title="Quick view"><span>Quick
-													view</span></a> <a href="#" class="btn-product-icon btn-compare"
-												title="Compare"><span>Compare</span></a>
+											<a th:data-id="${item.id}"
+												th:onclick="addLikeShop(this.getAttribute('data-id'))"
+												class="btn-product-icon btn-wishlist btn-expandable"><span>Yêu
+													thích</span></a> <a href="#quickView-modal" data-toggle="modal"
+												th:data-id="${item.id}"
+												th:onclick="quickView(this.getAttribute('data-id'))"
+												class="btn-product-icon btn-quickview"><span>Xem</span></a>
 										</div>
 										<!-- End .product-action-vertical -->
 
 										<div class="product-action">
-											<a href="#" class="btn-product btn-cart" title="Add to cart"><span>add
-													to cart</span></a>
+											<a href="#quickView-modal" data-toggle="modal"
+												th:data-id="${item.id}"
+												th:onclick="quickView(this.getAttribute('data-id'))"
+												class="btn-product btn-cart"><span>Thêm giỏ hàng</span></a>
 										</div>
 										<!-- End .product-action -->
 									</figure>
@@ -533,32 +567,35 @@
 
 									<div class="product-body">
 										<div class="product-cat">
-											<a href="#">Tables</a>
+											<a href="#" th:text="${item.category.name}">Women</a>
 										</div>
 										<!-- End .product-cat -->
 										<h3 class="product-title">
-											<a href="product.html">Block Side Table/Trolley</a>
+											<a th:href="@{/molla/product-detail(id=${item.id})}"
+												th:text="${item.name}">Tên sản phẩm</a>
 										</h3>
 										<!-- End .product-title -->
-										<div class="product-price">$299.99</div>
-										<!-- End .product-price -->
-										<div class="ratings-container">
-											<div class="ratings">
-												<div class="ratings-val" style="width: 80%;"></div>
-												<!-- End .ratings-val -->
-											</div>
-											<!-- End .ratings -->
-											<span class="ratings-text">( 12 Reviews )</span>
-										</div>
-										<!-- End .rating-container -->
+										<div class="product-price"
+											th:if="${item.startDayDiscount == null or item.endDayDiscount == null or item.discount <= 0}"
+											th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+											VND</div>
 
-										<div class="product-nav product-nav-dots">
-											<a href="#" class="active" style="background: #333333;"><span
-												class="sr-only">Color name</span></a> <a href="#"
-												style="background: #e2e2e2;"><span class="sr-only">Color
-													name</span></a>
+										<div class="product-price"
+											th:if="${item.startDayDiscount != null and item.endDayDiscount != null and item.discount > 0}">
+											<span
+												th:if="${item.startDayDiscount.after(#dates.createNow())}"
+												th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+												VND</span> <span
+												th:if="${item.startDayDiscount.before(#dates.createNow()) and item.endDayDiscount.after(#dates.createNow())}">
+												<span class="new-price"
+												th:text="${#numbers.formatDecimal(item.price - (item.price * item.discount * 0.01), 0, 'COMMA', 0, 'POINT')} + ' VND'">150.000
+													VND</span> <span class="old-price"> <del
+														th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">
+														150.000 VND</del></span>
+
+											</span>
 										</div>
-										<!-- End .product-nav -->
+										<!-- End .product-price -->
 									</div>
 									<!-- End .product-body -->
 								</div>
@@ -741,105 +778,6 @@
 								<!-- End .widget widget-banner -->
 							</div>
 							<!-- End .col-sm-6 col-xl-12 -->
-
-							<div class="col-sm-6 col-xl-12 mb-2">
-								<div class="widget widget-products">
-									<h4 class="widget-title">
-										<span>Top 5 mua nhiều nhất</span>
-									</h4>
-									<!-- End .widget-title -->
-
-									<div class="products">
-										<div class="product product-sm">
-											<figure class="product-media">
-												<a href="#"> <img
-													th:src="@{/shop/assets/images/demos/demo-14/products/small/product-1.jpg}"
-													alt="Product image" class="product-image">
-												</a>
-											</figure>
-
-											<div class="product-body">
-												<h5 class="product-title">
-													<a href="#">Sceptre 50" Class FHD (1080P) LED TV</a>
-												</h5>
-												<!-- End .product-title -->
-												<div class="product-price">$199.99</div>
-												<!-- End .product-price -->
-											</div>
-											<!-- End .product-body -->
-										</div>
-										<!-- End .product product-sm -->
-									</div>
-									<!-- End .products -->
-								</div>
-								<!-- End .widget widget-products -->
-							</div>
-							<!-- End .col-sm-6 col-xl-12 -->
-
-							<div class="col-12">
-								<div class="widget widget-deals">
-									<h4 class="widget-title">
-										<span>Đang giảm giá</span>
-									</h4>
-									<!-- End .widget-title -->
-
-									<div class="row">
-
-										<div class="col-sm-6 col-xl-12">
-											<div class="product text-center">
-												<figure class="product-media">
-													<span class="product-label label-sale">Deal of the
-														week</span>
-													<a href="product.html"> <img
-														th:src="@{/shop/assets/images/demos/demo-14/products/deals/product-2.jpg}"
-														alt="Product image" class="product-image">
-													</a>
-
-													<div class="product-action-vertical">
-														<a href="#" class="btn-product-icon btn-wishlist"
-															title="Add to wishlist"><span>add to wishlist</span></a>
-														<a href="popup/quickView.html"
-															class="btn-product-icon btn-quickview" title="Quick view"><span>Quick
-																view</span></a> <a href="#" class="btn-product-icon btn-compare"
-															title="Compare"><span>Compare</span></a>
-													</div>
-													<!-- End .product-action-vertical -->
-
-													<div class="product-action">
-														<a href="#" class="btn-product btn-cart"
-															title="Add to cart"><span>add to cart</span></a>
-													</div>
-													<!-- End .product-action -->
-												</figure>
-												<!-- End .product-media -->
-
-												<div class="product-body">
-													<div class="product-cat">
-														<a href="#">Cameras</a>
-													</div>
-													<!-- End .product-cat -->
-													<h3 class="product-title">
-														<a href="product.html">GoPro HERO Session Waterproof
-															HD Action Camera</a>
-													</h3>
-													<!-- End .product-title -->
-													<div class="product-price">
-														<span class="new-price">$196.99</span> <span
-															class="old-price">Was $210.99</span>
-													</div>
-													<!-- End .product-price -->
-												</div>
-												<!-- End .product-body -->
-											</div>
-											<!-- End .product -->
-										</div>
-										<!-- End .col-sm-6 col-xl-12 -->
-									</div>
-									<!-- End .row -->
-								</div>
-								<!-- End .widget widget-deals -->
-							</div>
-							<!-- End .col-sm-6 col-lg-xl -->
 
 							<div class="col-sm-6 col-xl-12">
 								<div class="widget widget-banner">

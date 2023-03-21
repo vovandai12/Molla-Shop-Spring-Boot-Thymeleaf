@@ -67,6 +67,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						"/molla/home/**",
 						"/molla/about/**",
 						"/molla/shop/**",
+						"/molla/contact/**",
 						"/molla/product-detail/**",
 						"/molla/cart/**",
 						"/molla/account/**",

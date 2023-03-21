@@ -58,4 +58,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Object[]> statisticsViewCategory() {
 		return productRepository.statisticsViewCategory();
 	}
+
+	@Override
+	public List<Product> findAllByCategoryId(Long id) {
+		return productRepository.findAllByCategoryId(id);
+	}
 }
